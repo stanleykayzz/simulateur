@@ -1,0 +1,106 @@
+package simulateurDeFoule;
+
+import java.awt.Button;
+import java.awt.GridLayout;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+ 
+public class field{
+     
+    private File map = new File("src/res/map.txt");
+    private int numberOfChars;
+    private JFrame fenetre;
+    private GridLayout grid1, grid2, grid3;
+    private JPanel simulateur , options;
+    private ImageIcon mur = new ImageIcon("src/res/mur.png");   
+    private ImageIcon sol = new ImageIcon("src/res/sol.png");   
+    private ImageIcon herbe = new ImageIcon("src/res/herbe.png");   
+    private ImageIcon porte = new ImageIcon("src/res/porte.png");   
+    private ImageIcon fromage = new ImageIcon("src/res/fromage.png");   
+     
+    public field()
+    {
+        initField();        
+    }
+     
+    /**
+     * La fonction initField() permet d'initialiser le terrain
+     * il est préférable d'utiliser une fonction car à chaque appel de celle-ci
+     * on crée le terrain même si certain composants ont été modifié
+     * comme par exemeple une souris qui se déplace
+     * */
+    private void initField()
+    {
+        // On met en place les composant de la fenetre
+        this.fenetre = new JFrame(" Simulateur");
+        this.grid1 = new GridLayout(2,1);
+        fenetre.setLayout(grid1);
+        simulateur = new JPanel();
+        options = new JPanel();
+        fenetre.add(simulateur);
+        fenetre.add(options);
+         
+        //pour le simulateur , on ajoute un grid 19 x 48
+        simulateur.setLayout(new GridLayout(19,48));
+        FileParser(this.map);
+         
+         
+        //on met une coleur pourri dans option pour le distinguer
+        options.setLayout(new GridLayout(1,2));
+        options.add(new Button("OPTION"));
+        options.add(new Button("OPTION2"));
+         
+        fenetre.setSize(500, 500);
+        fenetre.setVisible(true);
+    }
+     
+    private void FileParser(File f)
+    {
+        f = this.map;
+        this.numberOfChars =0;
+        FileReader reader = null;
+        try {
+            reader = new FileReader(f);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        int character;
+ 
+        try {
+            while ((character = reader.read()) != -1) {
+                numberOfChars++;
+                if((char)character == '*')
+                    simulateur.add(new JLabel(mur));
+                else if((char)character == ' ')
+                    simulateur.add(new JLabel(sol));
+                else if((char)character == 'G')
+                    simulateur.add(new JLabel(herbe));
+                else if((char)character == 'A')
+                    simulateur.add(new JLabel(fromage));
+                else if((char)character == 'D')
+                    simulateur.add(new JLabel(porte));
+                else {
+                    char v = (char) character;
+                    simulateur.add(new JLabel(""+v));}
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            reader.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+         
+    }
+ 
+}

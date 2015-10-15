@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class field{
+public class field extends Graph{
 	
 	private File map = new File("src/res/map.txt");
 	private int numberOfChars;
@@ -31,6 +31,7 @@ public class field{
 		int v = 48; 
 		this.fenetre = new JFrame("simulateur 2");
 		this.fenetre.setLayout(new GridLayout(s, v));
+		GenericNode graphN = new GenericNode();
 		       JLabel[][] grid = new JLabel[s][v];
 		        		     
 				this.numberOfChars =0;
@@ -51,15 +52,15 @@ public class field{
 							while ((character = reader.read()) != -1) {
 								numberOfChars++;
 								if((char)character == '*')
-									this.fenetre.add(grid[i][j] = new JLabel(mur));
+									this.fenetre.add(grid[i][j] = graphN.contenu = new JLabel(mur));
 								else if((char)character == ' ')
-									this.fenetre.add(grid[i][j] =new JLabel(sol));
+									this.fenetre.add(grid[i][j] = graphN.contenu = new JLabel(sol));
 								else if((char)character == 'G')
-									this.fenetre.add(grid[i][j] =new JLabel(herbe));
+									this.fenetre.add(grid[i][j] = graphN.contenu = new JLabel(herbe));
 								else if((char)character == 'A')
-									this.fenetre.add(grid[i][j] =new JLabel(fromage));
+									this.fenetre.add(grid[i][j] = graphN.contenu = new JLabel(fromage));
 								else if((char)character == 'D')
-									this.fenetre.add(grid[i][j] =new JLabel(porte));
+									this.fenetre.add(grid[i][j] = graphN.contenu = new JLabel(porte));
 								else {
 									char vv = (char) character;
 									this.fenetre.add(grid[i][j] =new JLabel(""+vv));}

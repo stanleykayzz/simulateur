@@ -2,12 +2,11 @@ package simulateurDeFoule;
 
 import java.io.File;
 
-
+@SuppressWarnings("unused")
 public class Main {
- 
-    public static void main(String[] args)throws Exception {
-        // TODO Auto-generated method stub         
-        field f = new field();   
-        //System.out.println(f.getListOfNodes().get(1));
-    }
+
+	public static void main(String[] args) throws Exception {
+		Field f = new Field();
+		// System.out.println(f.getListOfNodes().get(1));
+	}
 }

@@ -2,7 +2,7 @@ package simulateurDeFoule;
 
 import java.util.Comparator;
 
-public class LinkedPriorityQueue<T> /* implements IPriorityQueue<T> */{
+public class LinkedPriorityQueue<T>{
 
 	private LinkSimple<T> node, queue;
 	private Comparator<T> cmp;
@@ -11,7 +11,6 @@ public class LinkedPriorityQueue<T> /* implements IPriorityQueue<T> */{
 		this.cmp = comparator;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void add(T value) {
 		LinkSimple<T> newNode = new LinkSimple<T>();
 		newNode.setValue(value);
@@ -48,7 +47,6 @@ public class LinkedPriorityQueue<T> /* implements IPriorityQueue<T> */{
 			return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public T remove() {
 
 		if (node != null) {

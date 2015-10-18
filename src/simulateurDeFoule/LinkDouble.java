@@ -1,45 +1,31 @@
 package simulateurDeFoule;
 
-public class LinkDouble<V> /* implements ILinkDouble<V> */{
-
-	private V data;
-	@SuppressWarnings("rawtypes")
-	private LinkDouble previous;
-	@SuppressWarnings("rawtypes")
-	private LinkDouble next;
+public class LinkDouble<V> {
+	private V value;
+	private LinkDouble<V> previous;
+	private LinkDouble<V> next;
 
 	public V getValue() {
-		return this.data;
+		return this.value;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setNext(LinkSimple arg0) {
-		this.setNext(arg0);
+	public void setValue(V value) {
+		this.value = value;
 	}
 
-	public void setValue(V arg0) {
-		this.data = arg0;
+	public LinkDouble<V> getNext() {
+		return this.next;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public LinkDouble getNext() {
-		return (LinkDouble) this.next;
+	public void setNext(LinkSimple<V> nextElement) {
+		this.setNext(nextElement);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public LinkDouble getPrevious() {
+	public LinkDouble<V> getPrevious() {
 		return this.previous;
 	}
-
-	@SuppressWarnings("rawtypes")
-	public void setNext(LinkDouble arg0) {
-		this.next = arg0;
-
-	}
-
-	@SuppressWarnings("rawtypes")
-	public void setPrevious(LinkDouble arg0) {
+	
+	public void setPrevious(LinkDouble<V> arg0) {
 		this.previous = arg0;
 	}
-
 }

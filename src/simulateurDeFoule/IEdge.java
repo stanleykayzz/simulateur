@@ -1,8 +1,7 @@
 package simulateurDeFoule;
 
-public interface IEdge {
-	@SuppressWarnings("rawtypes")
-	public INode getOther(INode me);
+public interface IEdge<K,V> {
+	public INode<K,V> getOther(INode<K,V> me);
 
 	public void setAttribute(String key, Object value);
 

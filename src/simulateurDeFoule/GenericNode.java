@@ -11,20 +11,17 @@ public class GenericNode<K, V> implements INode<K, V> {
 	private K id;
 	private V node;
 	@SuppressWarnings("unused")
-	private int x, y;
-	int heuristique;
-	@SuppressWarnings({ "rawtypes", "unused" })
-	private GenericNode wall = null;
-	private List<IEdge> edges = new ArrayList<IEdge>();
-	@SuppressWarnings("rawtypes")
-	private List<INode> neighbors = new ArrayList<INode>();;
+	private int positionX, positionY;
+	private int heuristique;
+	@SuppressWarnings({ "unused" })
+	private GenericNode<K, V> wall = null;
+	private List<IEdge<K, V>> edges = new ArrayList<IEdge<K, V>>();
+	private List<INode<K, V>> neighbors = new ArrayList<INode<K, V>>();
 	JLabel contenu;
 
-	// Constructeur de sommets de graphe
-	@SuppressWarnings("rawtypes")
-	public GenericNode(int x, int y, GenericNode g) {
-		this.x = x;
-		this.y = y;
+	public GenericNode(int x, int y, GenericNode<K, V> g) {
+		this.positionX = x;
+		this.positionY = y;
 		this.wall = g;
 	}
 
@@ -32,22 +29,9 @@ public class GenericNode<K, V> implements INode<K, V> {
 		this.wall = null;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void addNeighbor(INode i) {
+	@Override
+	public void addNeighbor(INode<K, V> i) {
 		this.neighbors.add(i);
-	}
-
-	@SuppressWarnings("rawtypes")
-	public ArrayList<INode> getNeighborList() {
-		return (ArrayList<INode>) this.neighbors;
-	}
-
-	public void setHeuristic(int i) {
-		this.heuristique = i;
-	}
-
-	public int getHeuristic() {
-		return this.heuristique;
 	}
 
 	@Override
@@ -61,15 +45,26 @@ public class GenericNode<K, V> implements INode<K, V> {
 	}
 
 	@Override
-	public List<IEdge> getEdges() {
+	public List<IEdge<K, V>> getEdges() {
 		return this.edges;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public int compareNodes(GenericNode sommet1, GenericNode sommet2) {
-		if (sommet1.heuristique < sommet2.heuristique)
+	public ArrayList<INode<K, V>> getNeighborList() {
+		return (ArrayList<INode<K, V>>) this.neighbors;
+	}
+
+	public void setHeuristic(int i) {
+		this.heuristique = i;
+	}
+
+	public int getHeuristic() {
+		return this.heuristique;
+	}
+
+	public int compareNodes(GenericNode<K,V> firstNode, GenericNode<K,V> secondNode) {
+		if (firstNode.heuristique < secondNode.heuristique)
 			return 1;
-		else if (sommet1.heuristique == sommet2.heuristique)
+		else if (firstNode.heuristique == secondNode.heuristique)
 			return 0;
 		else
 			return -1;

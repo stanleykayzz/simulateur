@@ -7,9 +7,7 @@ public interface INode<K, V> {
 
 	public V getValue();
 
-	public List<IEdge> getEdges();
+	public List<IEdge<K, V>> getEdges();
 
-	@SuppressWarnings("rawtypes")
-	public void addNeighbor(INode i);
-
+	public void addNeighbor(INode<K,V> i);
 }

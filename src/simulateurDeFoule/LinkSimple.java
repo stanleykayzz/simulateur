@@ -1,13 +1,10 @@
 package simulateurDeFoule;
 
-public class LinkSimple<V> /* implements ILinkSimple<V> */{
-
+public class LinkSimple<V> {
 	private V data;
-	@SuppressWarnings("rawtypes")
-	private LinkSimple next;
+	private LinkSimple<V> next;
 
-	@SuppressWarnings("rawtypes")
-	public LinkSimple getNext() {
+	public LinkSimple<V> getNext() {
 		return this.next;
 	}
 
@@ -15,13 +12,11 @@ public class LinkSimple<V> /* implements ILinkSimple<V> */{
 		return this.data;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setNext(LinkSimple arg0) {
-		this.next = arg0;
+	public void setNext(LinkSimple<V> element) {
+		this.next = element;
 	}
 
-	public void setValue(V arg0) {
-		this.data = arg0;
+	public void setValue(V element) {
+		this.data = element;
 	}
-
 }

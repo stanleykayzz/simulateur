@@ -9,13 +9,13 @@ public class GenericEdge implements IEdge {
 	@SuppressWarnings("rawtypes")
 	private INode node2;
 	// private Object value;
-	private HashMap<String, Object> ListValue = new HashMap<>();
+	private HashMap<String, Object> attributes = new HashMap<>();
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GenericEdge(INode firstNode, INode secondNode, int distance) {
 		this.node1 = firstNode;
 		this.node2 = secondNode;
-		this.ListValue.put("cost", distance);
+		this.attributes.put("cost", distance);
 		// this.value = distance;
 		firstNode.addNeighbor(secondNode);
 		secondNode.addNeighbor(firstNode);
@@ -33,15 +33,15 @@ public class GenericEdge implements IEdge {
 	}
 
 	@Override
-	public void setAttribute(String key, Object v) {
+	public void setAttribute(String attributeName, Object attributeValue) {
 		// key = nimp et value = taille edge
 		// this.value = v;
-		this.ListValue.put(key, v);
+		this.attributes.put(attributeName, attributeValue);
 	}
 
 	@Override
-	public Object getAttribute(String val) {
-		return this.ListValue.get(val);
+	public Object getAttribute(String attributeName) {
+		return this.attributes.get(attributeName);
 	}
 
 }

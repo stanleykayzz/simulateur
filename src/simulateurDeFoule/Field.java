@@ -91,10 +91,10 @@ public class Field extends Graph {
 	}
 
 	/**
-	 * La fonction initField() permet d'initialiser le terrain il est préférable
-	 * d'utiliser une fonction car à chaque appel de celle-ci on crée le terrain
-	 * même si certain composants ont été modifié comme par exemeple une souris
-	 * qui se déplace
+	 * La fonction initField() permet d'initialiser le terrain il est prï¿½fï¿½rable
+	 * d'utiliser une fonction car ï¿½ chaque appel de celle-ci on crï¿½e le terrain
+	 * mï¿½me si certain composants ont ï¿½tï¿½ modifiï¿½ comme par exemeple une souris
+	 * qui se dï¿½place
 	 * */
 	@SuppressWarnings("unused")
 	private void initField() {

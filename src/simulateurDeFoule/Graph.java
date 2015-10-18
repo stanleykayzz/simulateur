@@ -4,53 +4,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Graph<K, V> implements IGraph<K, V> {
-
-	// un graphe a des noeuds
 	@SuppressWarnings("rawtypes")
-	private List<GenericNode> graphNode = new ArrayList<GenericNode>();
-	private List<GenericEdge> graphEdges = new ArrayList<GenericEdge>();
+	private List<GenericNode> nodes;
+	private List<GenericEdge> edges;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Graph() {
-		this.graphNode = new ArrayList();
+		this.nodes = new ArrayList<>();
+		this.edges = new ArrayList<>();
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Graph(List<GenericNode> lesSommets, List<GenericEdge> lesChemins) {
-		this.graphNode = lesSommets;
-		this.graphEdges = lesChemins;
+	public Graph(List<GenericNode> nodesList, List<GenericEdge> edgesList) {
+		this.nodes = nodesList;
+		this.edges = edgesList;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public GenericNode getNode(K key) {
-		int i = 0;
-		while ((this.graphNode.get(i)).getValue() != key)
-		// while(( this.graphNode.get(i)).getValue() != key)
-		{
-			i++;
+		int index = 0;
+		while ((this.nodes.get(index)).getValue() != key){
+			index++;
 		}
-		return this.graphNode.get(i);
+		return this.nodes.get(index);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void registerNode(GenericNode node) {
-		this.graphNode.add(node);
+		this.nodes.add(node);
 	}
 
 	@Override
 	public void unregisterNode(K key) {
-		this.graphNode.remove(key);
+		this.nodes.remove(key);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public List<GenericNode> getListOfNodes() {
-		return this.graphNode;
+		return this.nodes;
 	}
 
 	public List<GenericEdge> getListOfEdges() {
-		return this.graphEdges;
+		return this.edges;
 	}
 
 	@SuppressWarnings("rawtypes")

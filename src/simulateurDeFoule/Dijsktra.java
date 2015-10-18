@@ -18,6 +18,7 @@ public class Dijsktra {
 		while(!exploredNodes.isEmpty()) {
 			Collections.sort(exploredNodes);
 			Triplet tripletOfLowestCostSum = exploredNodes.remove(0);
+			System.out.println(tripletOfLowestCostSum.node.getId());
 			closedNodes.add(tripletOfLowestCostSum);
 			if (tripletOfLowestCostSum.node.equals(graph.getNode(endNodeId))) {
 				showPath();
@@ -25,7 +26,8 @@ public class Dijsktra {
 			}
 			for (IEdge<String, Object> edge : tripletOfLowestCostSum.node.getEdges()) {
 				INode<String, Object> neighbor = edge.getOther(tripletOfLowestCostSum.node);
-				if (closedNodes.contains(neighbor)) {
+				if (findTripletByNode(neighbor) != null ) {
+					System.out.println("Already in closedNodes:"+neighbor.getId());
 					continue;
 				}
 				int costSum = tripletOfLowestCostSum.costSum + ((Integer) edge.getAttribute("cost")).intValue();
@@ -48,6 +50,7 @@ public class Dijsktra {
 	}
 	
 	public void showPath() {
+		System.out.println("ShowPath:");
 		List<String> path = new ArrayList<>();
 		Triplet lastTriplet = closedNodes.get(closedNodes.size()-1);
 		path.add(lastTriplet.node.getId());
@@ -101,6 +104,10 @@ public class Dijsktra {
 		GenericNode<String, Object> nodeD = new GenericNode<>("D");
 		GenericNode<String, Object> nodeE = new GenericNode<>("E");
 		GenericNode<String, Object> nodeF = new GenericNode<>("F");
+		GenericNode<String, Object> nodeG = new GenericNode<>("G");
+		GenericNode<String, Object> nodeH = new GenericNode<>("H");
+		GenericNode<String, Object> nodeI = new GenericNode<>("I");
+		GenericNode<String, Object> nodeJ = new GenericNode<>("J");
 		
 		graph.registerNode(nodeA);
 		graph.registerNode(nodeB);
@@ -108,29 +115,56 @@ public class Dijsktra {
 		graph.registerNode(nodeD);
 		graph.registerNode(nodeE);
 		graph.registerNode(nodeF);
+		graph.registerNode(nodeG);
+		graph.registerNode(nodeH);
+		graph.registerNode(nodeI);
+		graph.registerNode(nodeJ);
 		
-		GenericEdge<String, Object> edgeAB = new GenericEdge<>(nodeA, nodeB);
-		edgeAB.setAttribute("cost", 1);
-		GenericEdge<String, Object> edgeAC = new GenericEdge<>(nodeA, nodeC);
-		edgeAC.setAttribute("cost", 10);
-		GenericEdge<String, Object> edgeBD = new GenericEdge<>(nodeB, nodeD);
-		edgeBD.setAttribute("cost", 4);
+		GenericEdge<String, Object> edgeIA = new GenericEdge<>(nodeI, nodeA);
+		edgeIA.setAttribute("cost", 2);
+		GenericEdge<String, Object> edgeIG = new GenericEdge<>(nodeI, nodeG);
+		edgeIG.setAttribute("cost", 8);
+		GenericEdge<String, Object> edgeIB = new GenericEdge<>(nodeI, nodeB);
+		edgeIB.setAttribute("cost",3);
+		GenericEdge<String, Object> edgeAD = new GenericEdge<>(nodeA, nodeD);
+		edgeAD.setAttribute("cost", 9);		
+		GenericEdge<String, Object> edgeAG = new GenericEdge<>(nodeA, nodeG);
+		edgeAG.setAttribute("cost", 5);
 		GenericEdge<String, Object> edgeBC = new GenericEdge<>(nodeB, nodeC);
-		edgeBC.setAttribute("cost", 3);		
-		GenericEdge<String, Object> edgeCD = new GenericEdge<>(nodeC, nodeD);
-		edgeCD.setAttribute("cost", 3);
+		edgeBC.setAttribute("cost", 7);
+		GenericEdge<String, Object> edgeBG = new GenericEdge<>(nodeB, nodeG);
+		edgeBG.setAttribute("cost", 6);
+		GenericEdge<String, Object> edgeGD = new GenericEdge<>(nodeG, nodeD);
+		edgeGD.setAttribute("cost", 2);
+		GenericEdge<String, Object> edgeGC = new GenericEdge<>(nodeG, nodeC);
+		edgeGC.setAttribute("cost", 1);
+		
+		GenericEdge<String, Object> edgeDC = new GenericEdge<>(nodeD, nodeC);
+		edgeDC.setAttribute("cost", 2);
+		GenericEdge<String, Object> edgeDE = new GenericEdge<>(nodeD, nodeE);
+		edgeDE.setAttribute("cost", 7);
+		GenericEdge<String, Object> edgeDH = new GenericEdge<>(nodeD, nodeH);
+		edgeDH.setAttribute("cost", 4);
 		GenericEdge<String, Object> edgeCF = new GenericEdge<>(nodeC, nodeF);
-		edgeCF.setAttribute("cost", 3);
-		GenericEdge<String, Object> edgeCE = new GenericEdge<>(nodeC, nodeE);
-		edgeCE.setAttribute("cost", 2);
-		GenericEdge<String, Object> edgeDF = new GenericEdge<>(nodeD, nodeF);
-		edgeDF.setAttribute("cost", 1);
-		GenericEdge<String, Object> edgeEF = new GenericEdge<>(nodeE, nodeF);
-		edgeEF.setAttribute("cost", 0);
+		edgeCF.setAttribute("cost", 8);		
+		GenericEdge<String, Object> edgeCH = new GenericEdge<>(nodeC, nodeH);
+		edgeCH.setAttribute("cost", 3);
+		GenericEdge<String, Object> edgeHE = new GenericEdge<>(nodeH, nodeE);
+		edgeHE.setAttribute("cost", 3);
+		GenericEdge<String, Object> edgeHJ = new GenericEdge<>(nodeH, nodeJ);
+		edgeHJ.setAttribute("cost", 9);
+		GenericEdge<String, Object> edgeHF = new GenericEdge<>(nodeH, nodeF);
+		edgeHF.setAttribute("cost", 5);
+		GenericEdge<String, Object> edgeEJ = new GenericEdge<>(nodeE, nodeJ);
+		edgeEJ.setAttribute("cost", 6);
+		
+		GenericEdge<String, Object> edgeFJ = new GenericEdge<>(nodeF, nodeJ);
+		edgeFJ.setAttribute("cost", 4);
 
 		Dijsktra dijsktra = new Dijsktra();
 		dijsktra.setGraph(graph);
-		dijsktra.findShortestPath("A", "F");
+		
+		dijsktra.findShortestPath("I", "J");
 		
 		System.out.println("End");
 	}

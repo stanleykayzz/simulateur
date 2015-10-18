@@ -1,11 +1,9 @@
 package simulateurDeFoule;
 
 public interface IGraph<K, V> {
-	@SuppressWarnings("rawtypes")
-	public GenericNode getNode(K key);
+	public INode<K,V> getNode(K key);
 
-	@SuppressWarnings("rawtypes")
-	public void registerNode(GenericNode node);
+	public void registerNode(GenericNode<K, V> node);
 
 	public void unregisterNode(K key);
 }

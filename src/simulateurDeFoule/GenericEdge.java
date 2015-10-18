@@ -2,30 +2,23 @@ package simulateurDeFoule;
 
 import java.util.HashMap;
 
-public class GenericEdge implements IEdge {
+public class GenericEdge<K,V> implements IEdge<K,V> {
 
-	@SuppressWarnings("rawtypes")
-	private INode node1;
-	@SuppressWarnings("rawtypes")
-	private INode node2;
-	// private Object value;
+	private INode<K,V> node1;
+	private INode<K,V> node2;
 	private HashMap<String, Object> attributes = new HashMap<>();
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public GenericEdge(INode firstNode, INode secondNode, int distance) {
-		this.node1 = firstNode;
-		this.node2 = secondNode;
-		this.attributes.put("cost", distance);
-		// this.value = distance;
-		firstNode.addNeighbor(secondNode);
-		secondNode.addNeighbor(firstNode);
+	public GenericEdge(INode<K,V> nodeFirst, INode<K,V> nodeSecond) {
+		this.node1 = nodeFirst;
+		this.node2 = nodeSecond;
+		nodeFirst.addNeighbor(nodeSecond);
+		nodeSecond.addNeighbor(nodeFirst);
 		node1.getEdges().add(this);
 		node2.getEdges().add(this);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public INode getOther(INode me) {
+	public INode<K,V> getOther(INode<K,V> me) {
 		if (me == this.node1)
 			return this.node2;
 		else
@@ -43,5 +36,4 @@ public class GenericEdge implements IEdge {
 	public Object getAttribute(String attributeName) {
 		return this.attributes.get(attributeName);
 	}
-
 }

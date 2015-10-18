@@ -2,12 +2,12 @@ package simulateurDeFoule;
 
 import java.util.List;
 
-public interface INode<K, V> {
+public interface INode<K,V> {
 	public K getId();
 
 	public V getValue();
 
-	public List<IEdge<K, V>> getEdges();
+	public List<IEdge<K,V>> getEdges();
 
 	public void addNeighbor(INode<K,V> i);
 }

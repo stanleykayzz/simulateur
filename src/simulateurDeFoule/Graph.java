@@ -3,35 +3,31 @@ package simulateurDeFoule;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graph<K, V> implements IGraph<K, V> {
-	@SuppressWarnings("rawtypes")
-	private List<GenericNode> nodes;
-	private List<GenericEdge> edges;
+public class Graph<K,V> implements IGraph<K,V> {
+	private List<GenericNode<K,V>> nodes;
+	private List<GenericEdge<K,V>> edges;
 
 	public Graph() {
 		this.nodes = new ArrayList<>();
 		this.edges = new ArrayList<>();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Graph(List<GenericNode> nodesList, List<GenericEdge> edgesList) {
+	public Graph(List<GenericNode<K, V>> nodesList, List<GenericEdge<K,V>> edgesList) {
 		this.nodes = nodesList;
 		this.edges = edgesList;
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public GenericNode getNode(K key) {
+	public GenericNode<K, V> getNode(K key) {
 		int index = 0;
-		while ((this.nodes.get(index)).getValue() != key){
+		while ((this.nodes.get(index)).getId() != key){
 			index++;
 		}
 		return this.nodes.get(index);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public void registerNode(GenericNode node) {
+	public void registerNode(GenericNode<K, V> node) {
 		this.nodes.add(node);
 	}
 
@@ -40,12 +36,11 @@ public class Graph<K, V> implements IGraph<K, V> {
 		this.nodes.remove(key);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List<GenericNode> getListOfNodes() {
+	public List<GenericNode<K, V>> getListOfNodes() {
 		return this.nodes;
 	}
 
-	public List<GenericEdge> getListOfEdges() {
+	public List<GenericEdge<K,V>> getListOfEdges() {
 		return this.edges;
 	}
 

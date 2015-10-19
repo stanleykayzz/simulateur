@@ -17,9 +17,11 @@ public class Dijsktra {
 		exploredNodes.add(new Triplet(graph.getNode(startNodeId), 0, null));
 		while(!exploredNodes.isEmpty()) {
 			Collections.sort(exploredNodes);
+			printExploredNodes();
 			Triplet tripletOfLowestCostSum = exploredNodes.remove(0);
-			System.out.println(tripletOfLowestCostSum.node.getId());
+			System.out.println("Triplet of lowest cost sum: "+tripletOfLowestCostSum.toString());
 			closedNodes.add(tripletOfLowestCostSum);
+			printClosedNodes();
 			if (tripletOfLowestCostSum.node.equals(graph.getNode(endNodeId))) {
 				showPath();
 				break;
@@ -27,19 +29,19 @@ public class Dijsktra {
 			for (IEdge<String, Object> edge : tripletOfLowestCostSum.node.getEdges()) {
 				INode<String, Object> neighbor = edge.getOther(tripletOfLowestCostSum.node);
 				if (findTripletByNode(neighbor) != null ) {
-					System.out.println("Already in closedNodes:"+neighbor.getId());
+					//System.out.println("Already in closedNodes:"+neighbor.getId());
 					continue;
 				}
 				int costSum = tripletOfLowestCostSum.costSum + ((Integer) edge.getAttribute("cost")).intValue();
 				Triplet tempTriplet = new Triplet(neighbor, costSum, tripletOfLowestCostSum.node);
 				boolean tempFound = false;
-				for (Triplet triplet : exploredNodes) {
-					if (triplet.node.getId().equals(tempTriplet.node.getId())) {
-						if (triplet.compareTo(tempTriplet) > 0) {
-							triplet = tempTriplet;
+				for (int i=0; i<exploredNodes.size(); i++) {
+					if (exploredNodes.get(i).node.getId().equals(tempTriplet.node.getId())) {
+						tempFound = true;
+						if (exploredNodes.get(i).compareTo(tempTriplet) > 0) {
+							exploredNodes.set(i, tempTriplet);
 							break;
 						}
-						tempFound = true;
 					}
 				}
 				if (!tempFound) {
@@ -47,6 +49,22 @@ public class Dijsktra {
 				}
 			}
 		}
+	}
+
+	public void printExploredNodes(){
+		List<String> nodes = new ArrayList<>();
+		for( Triplet triplet : exploredNodes){
+			nodes.add(triplet.node.getId());
+		}
+		System.out.println("Explored Nodes: "+nodes);
+	}
+
+	public void printClosedNodes(){
+		List<String> nodes = new ArrayList<>();
+		for( Triplet triplet : closedNodes){
+			nodes.add(triplet.node.getId());
+		}
+		System.out.println("Closed Nodes: "+nodes);
 	}
 	
 	public void showPath() {
@@ -92,6 +110,13 @@ public class Dijsktra {
 				return 0;
 			}
 			return -1;
+		}
+		
+		public String toString() {
+			return String.format("{%s;%d;%s}", 
+					node == null ? "" : node.getId(),
+					costSum,
+					parent == null ? "" : parent.getId());
 		}
 	}
 	

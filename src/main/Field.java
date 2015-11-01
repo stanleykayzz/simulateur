@@ -1,4 +1,4 @@
-package simulateurDeFoule;
+package main;
 
 import java.awt.Button;
 import java.awt.GridLayout;
@@ -12,16 +12,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.java.com.proj.graph.impl.GenericNode;
+import main.java.com.proj.graph.impl.Graph;
+import main.java.com.proj.utils.Constants;
+
 @SuppressWarnings("rawtypes")
 public class Field extends Graph {
 
-	private File map = new File("src/res/map.txt");
+	private File map = new File("src/main/res/map.txt");
 	private int numberOfChars;
 	private JFrame fenetre;
 	@SuppressWarnings("unused")
 	private GridLayout grid1, grid2, grid3;
 	private JPanel simulateur, options;
-	private ImageIcon mur = new ImageIcon("src/res/mur.png");
+	private ImageIcon mur = new ImageIcon(Constants.WALL);
 	private ImageIcon sol = new ImageIcon("src/res/sol.png");
 	private ImageIcon herbe = new ImageIcon("src/res/herbe.png");
 	private ImageIcon porte = new ImageIcon("src/res/porte.png");

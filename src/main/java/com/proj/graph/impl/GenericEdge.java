@@ -1,6 +1,9 @@
-package simulateurDeFoule;
+package main.java.com.proj.graph.impl;
 
 import java.util.HashMap;
+
+import main.java.com.proj.graph.interfaces.IEdge;
+import main.java.com.proj.graph.interfaces.INode;
 
 public class GenericEdge<K,V> implements IEdge<K,V> {
 

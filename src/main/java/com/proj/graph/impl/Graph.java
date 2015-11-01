@@ -1,7 +1,9 @@
-package simulateurDeFoule;
+package main.java.com.proj.graph.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import main.java.com.proj.graph.interfaces.IGraph;
 
 public class Graph<K,V> implements IGraph<K,V> {
 	private List<GenericNode<K,V>> nodes;

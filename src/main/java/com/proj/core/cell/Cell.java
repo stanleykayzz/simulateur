@@ -1,11 +1,11 @@
-package simulateurDeFoule;
+package main.java.com.proj.core.cell;
 
 public class Cell {
 	int x;
 	int y;
-	String nature;
+	char nature;
 	
-	public Cell(int x, int y, String nature) {
+	public Cell(int x, int y, char nature) {
 		this.x = x;
 		this.y = y;
 		this.nature = nature;
@@ -21,5 +21,9 @@ public class Cell {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public char getNature() {
+		return nature;
 	}
 }

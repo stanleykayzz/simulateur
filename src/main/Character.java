@@ -1,4 +1,4 @@
-package simulateurDeFoule;
+package main;
 
 public class Character {
 

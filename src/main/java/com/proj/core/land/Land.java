@@ -1,16 +1,29 @@
-package simulateurDeFoule;
+package main.java.com.proj.core.land;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.java.com.proj.core.cell.Cell;
+import main.java.com.proj.core.cell.CellNode;
+import main.java.com.proj.graph.impl.GenericEdge;
+import main.java.com.proj.graph.impl.Graph;
+
 public class Land {
-	//TODO créer un fonction qui prend en paramètre un fichier avec des int colonne row
-	//TODO parser ce fichier
-	//TODO créer un graphe à la volet à partir des données récupérer
-	//TODO stocker dans une variable d'instance les positions du noeud cible
 	private Map<String, Cell> pLand;
 	private int columns;
 	private int rows;
+	
+	public static Land buildFromFile(String filename) throws Exception {
+		LandFile landFile = new LandFile(filename);
+		System.out.println("landFile.rows:"+landFile.rows);
+		System.out.println("landFile.cols:"+landFile.cols);
+		System.out.println("landFile.allChars.size:"+landFile.allChars.size());
+		System.out.println("landFile.allChars:"+landFile.allChars);
+		Land land = new Land(landFile.cols, landFile.rows);
+		land.buildLand(landFile.allChars);
+		return land;
+	}
 	
 	public Land(int x, int y){
 		this.columns = x;
@@ -18,15 +31,32 @@ public class Land {
 		this.pLand = new HashMap<>();
 		buildLand();
 	}
-	
+	public void buildLand(ArrayList<Character> allChars) {
+		for (int i=0; i<rows; i++) {
+			for (int j=0; j<columns; j++) {
+				pLand.put(""+i+""+j, new Cell(i,j, allChars.get(i*columns + j)));
+			}
+		}
+	}
 	public void buildLand() {
 		for (int i=1; i<=rows; i++) {
 			for (int j=1; j<=columns; j++) {
-				pLand.put(""+i+""+j, new Cell(i,j, " "));
+				//System.out.println("i:"+i+", j:"+j);
+				pLand.put(""+i+""+j, new Cell(i,j, ' '));
 			}
 		}
 	}
 	
+	public int getColumns() {
+		return this.columns;
+	}
+	
+	public int getRows() {
+		return this.rows;
+	}
+	public Cell get(int i, int j){
+		return pLand.get(""+i+""+j);
+	}
 	public void showLand() {
 		for (int i=1; i<=rows; i++) {
 			for (int j=1; j<=columns; j++) {

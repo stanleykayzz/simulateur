@@ -1,4 +1,4 @@
-package simulateurDeFoule;
+package main.java.com.proj.graph.interfaces;
 
 import java.util.List;
 

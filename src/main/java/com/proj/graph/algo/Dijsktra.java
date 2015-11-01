@@ -1,96 +1,118 @@
-package simulateurDeFoule;
+package main.java.com.proj.graph.algo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AStar {
-	Graph<String, Object> graph;
-	List<Quadruplet> exploredNodes;
-	List<Quadruplet> closedNodes;
-	int heuristic;
-	CellNode finalNode;
-	
-	public AStar(int heuritic, int targetPosX, int targetPosY) {
-		 graph = new Graph<>();
-		 exploredNodes = new ArrayList<>();
-		 closedNodes = new ArrayList<>();
-		 heuristic = 2;
-		 finalNode = new CellNode(""+targetPosX+""+targetPosY, new Cell(targetPosX, targetPosY, ""));
-	}
+import main.java.com.proj.graph.impl.GenericEdge;
+import main.java.com.proj.graph.impl.GenericNode;
+import main.java.com.proj.graph.impl.Graph;
+import main.java.com.proj.graph.interfaces.IEdge;
+import main.java.com.proj.graph.interfaces.INode;
+
+public class Dijsktra {
+	Graph<String, Object> graph = new Graph<>();
+	List<Triplet> exploredNodes = new ArrayList<>();
+	List<Triplet> closedNodes = new ArrayList<>();
 	
 	public void setGraph(Graph<String, Object> graph) {
 		this.graph = graph;
 	}
 	
-	public double getHeuristic(int currentX, int currentY) {
-		return Math.sqrt(Math.pow(currentX-finalNode.getValue().getX(), 2) + Math.pow(currentY-finalNode.getValue().getY(), 2));
-	}
-	
 	public void findShortestPath(String startNodeId, String endNodeId) {
-		exploredNodes.add(new Quadruplet(graph.getNode(startNodeId), 0, null, getHeuristic(0,0)));
+		exploredNodes.add(new Triplet(graph.getNode(startNodeId), 0, null));
 		while(!exploredNodes.isEmpty()) {
 			Collections.sort(exploredNodes);
 			printExploredNodes();
-			Quadruplet quadrupletOfLowestCostSum = exploredNodes.remove(0);
-			System.out.println("Quadruplet of lowest cost sum: "+quadrupletOfLowestCostSum.toString());
-			closedNodes.add(quadrupletOfLowestCostSum);
+			Triplet tripletOfLowestCostSum = exploredNodes.remove(0);
+			System.out.println("Triplet of lowest cost sum: "+tripletOfLowestCostSum.toString());
+			closedNodes.add(tripletOfLowestCostSum);
 			printClosedNodes();
-			
-			if (quadrupletOfLowestCostSum.node.equals(graph.getNode(endNodeId))) {
+			if (tripletOfLowestCostSum.node.equals(graph.getNode(endNodeId))) {
 				showPath();
 				break;
 			}
-			
-			for (IEdge<String, Object> edge : quadrupletOfLowestCostSum.node.getEdges()) {
-				INode<String, Object> neighbor = edge.getOther(quadrupletOfLowestCostSum.node);
-				if (findQuadrupletByNode(neighbor) != null ) {
+			for (IEdge<String, Object> edge : tripletOfLowestCostSum.node.getEdges()) {
+				INode<String, Object> neighbor = edge.getOther(tripletOfLowestCostSum.node);
+				if (findTripletByNode(neighbor) != null ) {
 					//System.out.println("Already in closedNodes:"+neighbor.getId());
 					continue;
 				}
-				int costSum = quadrupletOfLowestCostSum.costSum + ((Integer) edge.getAttribute("cost")).intValue();
-				
-				double estimateOfTheCostOfOptimalPath = costSum + quadrupletOfLowestCostSum.estimateOfTheCostOfOptimalPath;
-				
-				Quadruplet tempQuadruplet = new Quadruplet(neighbor, costSum, quadrupletOfLowestCostSum.node, 
-						estimateOfTheCostOfOptimalPath);
-				
+				int costSum = tripletOfLowestCostSum.costSum + ((Integer) edge.getAttribute("cost")).intValue();
+				Triplet tempTriplet = new Triplet(neighbor, costSum, tripletOfLowestCostSum.node);
 				boolean tempFound = false;
 				for (int i=0; i<exploredNodes.size(); i++) {
-					if (exploredNodes.get(i).node.getId().equals(tempQuadruplet.node.getId())) {
+					if (exploredNodes.get(i).node.getId().equals(tempTriplet.node.getId())) {
 						tempFound = true;
-						if (exploredNodes.get(i).compareTo(tempQuadruplet) > 0) {
-							exploredNodes.set(i, tempQuadruplet);
+						if (exploredNodes.get(i).compareTo(tempTriplet) > 0) {
+							exploredNodes.set(i, tempTriplet);
 							break;
 						}
 					}
 				}
 				if (!tempFound) {
-					exploredNodes.add(tempQuadruplet);
+					exploredNodes.add(tempTriplet);
 				}
 			}
 		}
 	}
 
-	public class Quadruplet implements Comparable<Quadruplet> {
+	public void printExploredNodes(){
+		List<String> nodes = new ArrayList<>();
+		for( Triplet triplet : exploredNodes){
+			nodes.add(triplet.node.getId());
+		}
+		System.out.println("Explored Nodes: "+nodes);
+	}
+
+	public void printClosedNodes(){
+		List<String> nodes = new ArrayList<>();
+		for( Triplet triplet : closedNodes){
+			nodes.add(triplet.node.getId());
+		}
+		System.out.println("Closed Nodes: "+nodes);
+	}
+	
+	public void showPath() {
+		System.out.println("ShowPath:");
+		List<String> path = new ArrayList<>();
+		Triplet lastTriplet = closedNodes.get(closedNodes.size()-1);
+		path.add(lastTriplet.node.getId());
+		INode<String, Object> parent = lastTriplet.parent;
+		while (lastTriplet!=null && parent!=null){
+			lastTriplet = findTripletByNode(parent);
+			path.add(lastTriplet.node.getId());
+			parent = lastTriplet.parent;
+		}
+		Collections.reverse(path);
+		System.out.println(path);
+	}
+	
+	public Triplet findTripletByNode(INode<String, Object> node) {
+		for (Triplet triplet : closedNodes) {
+			if (triplet.node!=null && triplet.node.getId().equals(node.getId())) {
+				return triplet;
+			}
+		}
+		return null;
+	}
+
+	public class Triplet implements Comparable<Triplet> {
 		INode<String, Object> node;
 		int costSum;
 		INode<String, Object> parent;
-		double estimateOfTheCostOfOptimalPath;
 		
-		public Quadruplet(INode<String, Object> node, int costSum, INode<String, Object> nodeParent,
-				double costOfOptimalPath) {
+		public Triplet(INode<String, Object> node, int costSum, INode<String, Object> nodeParent) {
 			this.node = node;
 			this.costSum = costSum;
 			this.parent = nodeParent;
-			this.estimateOfTheCostOfOptimalPath = costOfOptimalPath;
 		}
 		
 		@Override
-		public int compareTo(Quadruplet o2) {
-			if (this.estimateOfTheCostOfOptimalPath > o2.estimateOfTheCostOfOptimalPath) {
+		public int compareTo(Triplet o2) {
+			if (this.costSum > o2.costSum) {
 				return 1;
-			} else if (this.estimateOfTheCostOfOptimalPath == o2.estimateOfTheCostOfOptimalPath) {
+			} else if (this.costSum == o2.costSum) {
 				return 0;
 			}
 			return -1;
@@ -100,53 +122,12 @@ public class AStar {
 			return String.format("{%s;%d;%s}", 
 					node == null ? "" : node.getId(),
 					costSum,
-					parent == null ? "" : parent.getId(),
-					estimateOfTheCostOfOptimalPath);
+					parent == null ? "" : parent.getId());
 		}
-	}
-	
-	public Quadruplet findQuadrupletByNode(INode<String, Object> node) {
-		for (Quadruplet quadruplet : closedNodes) {
-			if (quadruplet.node!=null && quadruplet.node.getId().equals(node.getId())) {
-				return quadruplet;
-			}
-		}
-		return null;
-	}
-
-	public void printExploredNodes(){
-		List<String> nodes = new ArrayList<>();
-		for(Quadruplet quadruplet : exploredNodes){
-			nodes.add(quadruplet.node.getId());
-		}
-		System.out.println("Explored Nodes: "+nodes);
-	}
-
-	public void printClosedNodes(){
-		List<String> nodes = new ArrayList<>();
-		for(Quadruplet quadruplet : closedNodes){
-			nodes.add(quadruplet.node.getId());
-		}
-		System.out.println("Closed Nodes: "+nodes);
-	}
-	
-	public void showPath() {
-		System.out.println("ShowPath:");
-		List<String> path = new ArrayList<>();
-		Quadruplet lastTriplet = closedNodes.get(closedNodes.size()-1);
-		path.add(lastTriplet.node.getId());
-		INode<String, Object> parent = lastTriplet.parent;
-		while (lastTriplet!=null && parent!=null){
-			lastTriplet = findQuadrupletByNode(parent);
-			path.add(lastTriplet.node.getId());
-			parent = lastTriplet.parent;
-		}
-		Collections.reverse(path);
-		System.out.println(path);
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("AStar...");
+		System.out.println("Dijsktra...");
 		Graph<String, Object> graph = new Graph<>();
 		GenericNode<String, Object> nodeA = new GenericNode<>("A");
 		GenericNode<String, Object> nodeB = new GenericNode<>("B");

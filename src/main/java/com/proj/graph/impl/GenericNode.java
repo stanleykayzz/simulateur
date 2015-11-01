@@ -1,9 +1,12 @@
-package simulateurDeFoule;
+package main.java.com.proj.graph.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
+
+import main.java.com.proj.graph.interfaces.IEdge;
+import main.java.com.proj.graph.interfaces.INode;
 
 public class GenericNode<K, V> implements INode<K,V> {
 	private K id;
@@ -15,7 +18,7 @@ public class GenericNode<K, V> implements INode<K,V> {
 	private GenericNode<K, V> wall = null;
 	private List<IEdge<K,V>> edges = new ArrayList<IEdge<K,V>>();
 	private List<INode<K,V>> neighbors = new ArrayList<INode<K,V>>();
-	JLabel contenu;
+	public JLabel contenu;
 
 //	public GenericNode(int x, int y, GenericNode<K, V> g) {
 //		this.positionX = x;

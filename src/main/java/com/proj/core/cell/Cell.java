@@ -5,7 +5,7 @@ public class Cell {
 	int y;
 	boolean diagonally;
 	private int g;
-	private double f;
+	private double f=0;
 	private double h;
 	private Cell parent;
 	char nature;
@@ -15,6 +15,14 @@ public class Cell {
 		this.x = x;
 		this.y = y;
 		this.nature = nature;
+		this.walkable = true;
+	}
+	public Cell(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.h = 0;
+		this.g = 0;
+		this.walkable = true;
 	}
 	
 	public String toString() {
@@ -22,7 +30,7 @@ public class Cell {
 	}
 	
 	public int getX() {
-		return x;
+		return this.x;
 	}
 	public boolean getWalkable() {
 		return this.walkable;
@@ -30,8 +38,8 @@ public class Cell {
 	public void setH(double sqrt) {
 		this.h = sqrt;
 	}
-	protected void setH(int h) {
-        this.h = h;
+	protected void setH(int i) {
+        this.h = i;
     }
 
 	public void setG(int i) {
@@ -39,7 +47,7 @@ public class Cell {
 	}
 
 	public void setG(Cell i) {
-		this.g = i.g;
+		this.g = i.g ;
 	}
 
 	public int getG() {
@@ -50,24 +58,22 @@ public class Cell {
 		this.f = i;
 	}
 
-	public void setHeuristic(int i) {
-		this.h = i;
-	}
-
-	public void setHeuristic(Cell i) {
-		this.h = i.h;
-	}
-
-	public double getHeuristic() {
-		return this.h;
-	}
-
 	public void setCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	public double getF() {
 		return this.g + this.h;
+	}
+	public void setG(double gCosts) {
+		this.g = g ;
+	}
+	public void setgCosts(Cell previousAbstractNode) {
+		if (diagonally) {
+			setgCosts(previousAbstractNode, 1);
+		} else {
+			setgCosts(previousAbstractNode, 1);
+		}
 	}
 	public void setgCosts(Cell previousAbstractNode, int basicCost) {
 		setG(previousAbstractNode.getG() + basicCost);
@@ -79,7 +85,7 @@ public class Cell {
 	}
 
 	public int getY() {
-		return y;
+		return this.y;
 	}
 	public Cell getParent() {
 		return this.parent;
@@ -95,6 +101,9 @@ public class Cell {
 	}
 	public double getH() {
 		return this.h;
+	}
+	public boolean isDiagonaly() {
+		return diagonally;
 	}
 	public void setIsDiagonaly(boolean b) {
 		this.diagonally= b;		

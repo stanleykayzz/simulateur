@@ -14,7 +14,7 @@ public class CellView extends JLabel{
 		super();
 		this.cell = oneCell;
 		setImageIcon();
-		this.setIcon(imageIcon);;
+		this.setIcon(imageIcon);
 	}
 	
 	private void setImageIcon() {
@@ -34,8 +34,12 @@ public class CellView extends JLabel{
 			imageIcon = new ImageIcon(Constants.DOOR);
 			return;
 		}
-		if (cell.getNature() == ' ' || cell.getNature() == 'P') {
+		if (cell.getNature() == ' ' ) {
 			imageIcon = new ImageIcon(Constants.FLOOR);
+			return;
+		}
+		if (cell.getNature() == 'P') {
+			imageIcon = new ImageIcon(Constants.MOUSE);
 			return;
 		}
 	}

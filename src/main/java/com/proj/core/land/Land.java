@@ -25,6 +25,11 @@ public class Land {
 		return land;
 	}
 	
+	public Map<String,Cell> getPland()
+	{
+		return this.pLand;
+	}
+	
 	public Land(int x, int y){
 		this.columns = x;
 		this.rows = y;
@@ -37,7 +42,7 @@ public class Land {
 				pLand.put(""+i+""+j, new Cell(i,j, allChars.get(i*columns + j)));
 			}
 		}
-	}
+	}		
 	public void buildLand() {
 		for (int i=1; i<=rows; i++) {
 			for (int j=1; j<=columns; j++) {

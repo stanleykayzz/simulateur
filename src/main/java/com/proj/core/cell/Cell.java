@@ -12,6 +12,7 @@ public class Cell extends JLabel{
 	private Cell parent;
 	char nature;
 	boolean walkable;
+	boolean busy = false;
 	private boolean statut;
 	
 	public Cell(int x, int y, char nature){
@@ -67,6 +68,13 @@ public class Cell extends JLabel{
 
 	public void setF(double i) {
 		this.f = i;
+	}
+	/* les methodes getBusy et setBusy sont utilisé lorsqu'une souris entre ou sort d'une cellule*/
+	public void setBusy(boolean i) {
+		this.busy = i;
+	}
+	public boolean getBusy() {
+		return this.busy;
 	}
 
 	public void setCoordinates(int x, int y) {

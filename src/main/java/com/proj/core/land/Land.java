@@ -15,11 +15,11 @@ public class Land {
 	private int rows;
 	
 	public static Land buildFromFile(String filename) throws Exception {
-		LandFile landFile = new LandFile(filename);
-		System.out.println("landFile.rows:"+landFile.rows);
-		System.out.println("landFile.cols:"+landFile.cols);
-		System.out.println("landFile.allChars.size:"+landFile.allChars.size());
-		System.out.println("landFile.allChars:"+landFile.allChars);
+		LandFileParser landFile = new LandFileParser(filename);
+//		System.out.println("landFile.rows:"+landFile.rows);
+//		System.out.println("landFile.cols:"+landFile.cols);
+//		System.out.println("landFile.allChars.size:"+landFile.allChars.size());
+//		System.out.println("landFile.allChars:"+landFile.allChars);
 		Land land = new Land(landFile.cols, landFile.rows);
 		land.buildLand(landFile.allChars);
 		return land;

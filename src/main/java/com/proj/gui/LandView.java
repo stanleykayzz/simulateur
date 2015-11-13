@@ -3,8 +3,10 @@ package main.java.com.proj.gui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.core.land.Land;
@@ -15,12 +17,12 @@ public class LandView extends JPanel{
 	public LandView(Land oneLand) {
 		land = oneLand;
 		//this.setBackground(new Color(203, 0, 1));
-		System.out.println("LandView");
+		//System.out.println("LandView");
 		this.setLayout(new GridBagLayout());
-		intCellViews();
+		initCellViews();
 	}
 	
-	private void intCellViews() {
+	private void initCellViews() {
 		GridBagConstraints c = new GridBagConstraints();
 		for (int i=0; i<land.getRows(); i++) {
 			for (int j=0; j<land.getColumns(); j++) {
@@ -32,7 +34,5 @@ public class LandView extends JPanel{
 				this.add(cellView,c);
 			}
 		}
-	}
-	
-	
+	}	
 }

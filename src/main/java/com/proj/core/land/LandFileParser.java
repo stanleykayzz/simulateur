@@ -7,13 +7,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-public class LandFile {
+public class LandFileParser {
 	
 	public int rows;
 	public int cols;
 	public ArrayList<Character> allChars = new ArrayList<>(); 
 	
-	public LandFile(String filename) throws Exception {
+	public LandFileParser(String filename) throws Exception {
 		readLandDimension(filename);
 	}
 	

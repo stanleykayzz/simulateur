@@ -33,13 +33,19 @@ public class Mouse {
 		//on prend une seconde pour le mouvement suivant
 		Thread.sleep(1000);
 		for(int i=1;i<pathSize;i++)
-		{
-			this.moveMouseTo(terrain, yourPath.get(i).getX(), yourPath.get(i).getY());
-			lv = new LandView(terrain);
-			jf.add(lv);
-			jf.setVisible(true);
-			Thread.sleep(1000);
-		}
+		  {
+		   this.moveMouseTo(terrain, yourPath.get(i).getX(), yourPath.get(i).getY());
+		   lv = new LandView(terrain);
+		   jf.add(lv);
+		   jf.setVisible(true);
+		   Thread.sleep(1000);
+		   if(i == pathSize-1){
+		    this.removeMouse(terrain, yourPath.get(i).getX(), yourPath.get(i).getY());
+		    lv = new LandView(terrain);
+		    jf.add(lv);
+		    jf.setVisible(true);
+		   }
+		  }
 	}
 	
 	public Mouse(/*int x, int y,*/ int id)
@@ -53,6 +59,16 @@ public class Mouse {
 		//this.sabelette = new Cell(x,y,'P');
 		this.sabelette = new Cell('P');
 	}
+	
+	public void removeMouse(Land land, int px, int py)
+	  {
+	   System.out.println("Je suis dans remove");
+	   land.getPland().put(""+px+""+py,lastPosition);
+	   //on rend le busy de la cellule true
+	   land.get(px, py).setBusy(false);
+	   
+	  }
+	
 	//on ajoute une souri dans le pLand à la position passé en paramètre et on récupère la cell à cette position
 	public void addMouse(Land land, int px, int py)
 	{
@@ -61,7 +77,8 @@ public class Mouse {
 		//on remplace la cell à la position en param par la cellule de la souris
 		land.getPland().put(""+px+""+py,this.sabelette);
 		//on rend le busy de la cellule true
-		land.get(posX, posY).setBusy(true);
+		land.get(px, py).setBusy(true);
+		
 	}
 	
 	private Cell getMouse() {
@@ -84,15 +101,29 @@ public class Mouse {
 	public void moveMouseTo(Land lan,int posX, int posY) throws InterruptedException
 	{
 		//si la prochaine cellule est occupé la souris patiente une seconde
-		if(nextCellIsBusy(lan, posX, posY) == true)
-			{Thread.sleep(1000);}
-		//quand on déplace une souris c'est qu'elle existe et qu'elle a déjà une lastPosition
-		//avant de deplacer on remet l'ancienne valeur où elle était
-		lan.getPland().put(""+this.lastPosition.getX()+""+this.lastPosition.getY(),this.lastPosition);
-		//et on remet aussi le busy de l'ancienne cellule à false
-		lan.get(lastPosition.getX(), lastPosition.getY()).setBusy(false);
-		//lan.getPland().put(""+posX+""+posY,this.lastPosition);
-		this.addMouse(lan, posX, posY);
+		/*if(nextCellIsBusy(lan, posX, posY) == true)
+			{Thread.sleep(1000);}*/
+		System.out.println("xxxxxxxxxxxxx " +posX);
+		System.out.println("yyyyyyyyyy " +posY);
+		if(lan.get(posX, posY).getNature() == 'G')
+			{	
+			System.out.println("yyyyyyyyyy " +posY);
+			//quand on déplace une souris c'est qu'elle existe et qu'elle a déjà une lastPosition
+			//avant de deplacer on remet l'ancienne valeur où elle était
+			lan.getPland().put(""+this.lastPosition.getX()+""+this.lastPosition.getY(),this.lastPosition);
+			//et on remet aussi le busy de l'ancienne cellule à false
+			lan.get(lastPosition.getX(), lastPosition.getY()).setBusy(false);
+			//lan.getPland().put(""+posX+""+posY,this.lastPosition);
+			this.addMouse(lan, posX, posY);
+			Thread.sleep(2000);
+			}
+		else{ //quand on déplace une souris c'est qu'elle existe et qu'elle a déjà une lastPosition
+			//avant de deplacer on remet l'ancienne valeur où elle était
+			lan.getPland().put(""+this.lastPosition.getX()+""+this.lastPosition.getY(),this.lastPosition);
+			//et on remet aussi le busy de l'ancienne cellule à false
+			lan.get(lastPosition.getX(), lastPosition.getY()).setBusy(false);
+			//lan.getPland().put(""+posX+""+posY,this.lastPosition);
+			this.addMouse(lan, posX, posY);}
 	}
 	
 	public int getIdMouse(){
@@ -271,9 +302,8 @@ public class Mouse {
 			};
 			theThread.start();
 		}*/
-		
 		//******* test 5 -- les souris ne peuvent pas être à deux sur la même cellule, elle doivent attendre
-		ArrayList<Mouse> ls = new ArrayList<Mouse>();
+		/*ArrayList<Mouse> ls = new ArrayList<Mouse>();
 		ls.add(new Mouse(1));
 		ls.add(new Mouse(2));
 		//la liste des parcours
@@ -301,7 +331,49 @@ public class Mouse {
 				}
 			};
 			theThread.start();
-		}
+		}*/
+		
+		//******* test 6 -- les souris ne peuvent pas être à deux sur la même cellule, elle doivent attendre
+				ArrayList<Mouse> ls = new ArrayList<Mouse>();
+				ls.add(new Mouse(1));
+				ls.add(new Mouse(2));
+				//la liste des parcours
+				ArrayList<Cell> la = new ArrayList<Cell>();
+				ArrayList<Cell> li = new ArrayList<Cell>();
+				li.add(new Cell(1,1));
+				li.add(new Cell(1,2));
+				li.add(new Cell(1,3));
+				li.add(new Cell(1,4));
+				li.add(new Cell(1,5));
+				li.add(new Cell(1,6));
+				li.add(new Cell(1,7));
+				li.add(new Cell(1,8));
+				ArrayList<Cell> lu = new ArrayList<Cell>();
+				lu.add(new Cell(2,1));
+				lu.add(new Cell(2,2));
+				lu.add(new Cell(2,3));
+				lu.add(new Cell(2,4));
+				lu.add(new Cell(2,5));
+				lu.add(new Cell(2,6));
+				lu.add(new Cell(2,7));
+				lu.add(new Cell(2,8));		
+				for (Mouse m : ls)
+				{
+					Thread theThread = new Thread () {
+						public void run () {
+							try {
+								if(m == ls.get(0))
+									m.browseMyPath(fen,l, li);
+								else if(m == ls.get(1))
+									m.browseMyPath(fen,l, lu);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					};
+					theThread.start();
+				}
 	}
 
 }

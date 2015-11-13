@@ -62,6 +62,9 @@ public class Land {
 	public Cell get(int i, int j){
 		return pLand.get(""+i+""+j);
 	}
+	public Cell getFromPland(int i, int j){
+		return pLand.get(""+i+""+j);
+	}
 	public void showLand() {
 		for (int i=1; i<=rows; i++) {
 			for (int j=1; j<=columns; j++) {

@@ -10,16 +10,16 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Simulateur de foule");
 		SimulatorState state = new SimulatorState();
-		
-		
-		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map.txt");
+			
+		Simulator simulator = new Simulator();
+
+		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map.txt", simulator);
 		mw.setState(state);
 		
-		Simulator simulator = new Simulator();
 		simulator.setState(state);
 		simulator.setView(mw);
 		
-		Thread thread = new Thread(simulator);
-		thread.start();
+		//Thread thread = new Thread(simulator);
+		//thread.start();
 	}
 }

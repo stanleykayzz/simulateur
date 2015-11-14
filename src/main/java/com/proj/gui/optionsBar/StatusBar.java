@@ -9,8 +9,11 @@ import javax.swing.JPanel;
 import main.java.com.proj.gui.components.PropertyView;
 
 public class StatusBar extends JPanel{
+	private PropertyView attrTurn;
+	private PropertyView attrMove;
+	private PropertyView attrMovingMouse;
+	private PropertyView attrMouseArrived;
 	
-	public PropertyView propertyTour;
 	public StatusBar() {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(new Color(179, 166, 125));
@@ -18,22 +21,38 @@ public class StatusBar extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		
-		propertyTour = new PropertyView("TOUR","0");
-		propertyTour.setValue("1");
+		attrTurn = new PropertyView("TOUR","0");
+		attrTurn.setValue("1");
 		c.gridx = 1;
-		this.add(propertyTour, c);
+		this.add(attrTurn, c);
 		
-		PropertyView pv2 = new PropertyView("DEPLACEMENTS","0");
-		pv2.setValue("2");
+		attrMove = new PropertyView("DEPLACEMENTS","0");
+		attrMove.setValue("2");
 		c.gridx++;
-		this.add(pv2, c);
+		this.add(attrMove, c);
 		
-		PropertyView pv3 = new PropertyView("SOURIS EN DEPLACEMENTS","0");
+		attrMovingMouse = new PropertyView("SOURIS EN DEPLACEMENTS","0");
 		c.gridx++;
-		this.add(pv3, c);
+		this.add(attrMovingMouse, c);
 
-		PropertyView pv4 = new PropertyView("SOURIS ARRIVES","0");
+		attrMouseArrived = new PropertyView("SOURIS ARRIVES","0");
 		c.gridx++;
-		this.add(pv4, c);
+		this.add(attrMouseArrived, c);
+	}
+	
+	public PropertyView getAttrTurn() {
+		return attrTurn;
+	}
+	
+	public PropertyView getAttrMove() {
+		return attrMove;
+	}
+	
+	public PropertyView getAttrMovingMouse() {
+		return attrMovingMouse;
+	}
+	
+	public PropertyView getAttrMouseArrived() {
+		return attrMouseArrived;
 	}
 }

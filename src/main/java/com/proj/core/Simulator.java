@@ -1,15 +1,17 @@
 package main.java.com.proj.core;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import main.java.com.proj.gui.MainWindow;
 
-public class Simulator implements Runnable {
+public class Simulator extends Thread implements ActionListener {
 	private SimulatorState state;
 	private MainWindow view;
 	
 	public Simulator() {
 	}
 
-	@Override
 	public void run() {
 		for (int i=0; i<10; i++) {
 			//update state
@@ -37,5 +39,11 @@ public class Simulator implements Runnable {
 	
 	public void setView(MainWindow view) {
 		this.view = view;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		this.start();
 	}
 }

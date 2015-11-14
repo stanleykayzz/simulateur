@@ -10,6 +10,7 @@ import main.java.com.proj.gui.components.PropertyView;
 
 public class StatusBar extends JPanel{
 	
+	public PropertyView propertyTour;
 	public StatusBar() {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(new Color(179, 166, 125));
@@ -17,10 +18,10 @@ public class StatusBar extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		
-		PropertyView pv1 = new PropertyView("TOUR","0");
-		pv1.setValue("1");
+		propertyTour = new PropertyView("TOUR","0");
+		propertyTour.setValue("1");
 		c.gridx = 1;
-		this.add(pv1, c);
+		this.add(propertyTour, c);
 		
 		PropertyView pv2 = new PropertyView("DEPLACEMENTS","0");
 		pv2.setValue("2");

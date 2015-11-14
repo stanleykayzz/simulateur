@@ -6,7 +6,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 public class OptionsBar extends JPanel{
-	
+	public StatusBar statusBar;
 	public OptionsBar(){
 		//this.setBackground(new Color(23,159,47));
 
@@ -16,7 +16,7 @@ public class OptionsBar extends JPanel{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 
-		StatusBar statusBar = new StatusBar();
+		statusBar = new StatusBar();
 		add(statusBar,c);
 		ControlBar controlBar = new ControlBar();
 		add(controlBar,c);

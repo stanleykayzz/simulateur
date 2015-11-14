@@ -13,7 +13,7 @@ import main.java.com.proj.graph.impl.Graph;
 import main.java.com.proj.graph.interfaces.IEdge;
 import main.java.com.proj.graph.interfaces.INode;
 
-public class AStar {
+public class AStar2 {
 	Cell[][] node;
 	int high = 19;
 	int width = 48;
@@ -72,7 +72,7 @@ public class AStar {
     }
 	
 	private Cell lowestFInOpen() {
-        // traverse tout la liste ouverte pour récuperer le noeaud avec le F le plus petit
+        // traverse tout la liste ouverte pour rï¿½cuperer le noeaud avec le F le plus petit
 		Cell cheapest = openList.get(0);
         for (int i = 0; i < openList.size(); i++) {
             if (openList.get(i).getF() < cheapest.getF()) {

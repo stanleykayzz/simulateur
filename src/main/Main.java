@@ -1,13 +1,25 @@
 package main;
 
+import main.java.com.proj.core.Simulator;
+import main.java.com.proj.core.SimulatorState;
 import main.java.com.proj.gui.MainWindow;
 import main.java.com.proj.utils.Constants;
 
-@SuppressWarnings("unused")
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Simulateur de foule");
+		SimulatorState state = new SimulatorState();
+		
+		
 		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map.txt");
+		mw.setState(state);
+		
+		Simulator simulator = new Simulator();
+		simulator.setState(state);
+		simulator.setView(mw);
+		
+		Thread thread = new Thread(simulator);
+		thread.start();
 	}
 }

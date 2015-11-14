@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
+import main.java.com.proj.core.SimulatorState;
 import main.java.com.proj.core.land.Land;
 import main.java.com.proj.gui.optionsBar.OptionsBar;
 import main.java.com.proj.utils.Constants;
 
 public class MainWindow extends JFrame {
+	private SimulatorState simulatorState;
 	private int widthWindow;
 	private int heightWindow;
 	private Land land;
@@ -18,6 +20,7 @@ public class MainWindow extends JFrame {
 	
 	public MainWindow(String filename) throws Exception {
 		super();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		land = Land.buildFromFile(filename);
 		landView = new LandView(this.land);
 		optionsBar = new OptionsBar();
@@ -39,5 +42,13 @@ public class MainWindow extends JFrame {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		this.add(landView);
 		this.add(optionsBar);
+	}
+	
+	public void setState(SimulatorState state){
+		this.simulatorState = state;
+	}
+	
+	public void update(){
+		optionsBar.statusBar.propertyTour.setValue(""+simulatorState.getTurn());
 	}
 }

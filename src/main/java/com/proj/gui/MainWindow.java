@@ -59,11 +59,19 @@ public class MainWindow extends JFrame {
 		return optionsBar.getControlBar().getLaunchButton();
 	}
 	
-	public JTextField getSpeed() {
-		return optionsBar.getControlBar().getSpeed().getValue();
+	public int getSpeed() {
+		return Integer.parseInt(optionsBar.getControlBar().getSpeed().getValue().getText());
 	}
 	
 	public void setSpeed(String value) {
 		this.optionsBar.getControlBar().getSpeed().setValue(value);
+	}
+	
+	public int getNumberOfMouseDoorOne() {
+		return Integer.parseInt(this.optionsBar.getControlBar().getNumberOfMouseDoorOne().getValue().getText());
+	}
+	
+	public int getNumberOfMouseDoorTwo() {
+		return Integer.parseInt(this.optionsBar.getControlBar().getNumberOfMouseDoorTwo().getValue().getText());
 	}
 }

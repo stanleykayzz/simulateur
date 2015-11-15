@@ -3,9 +3,6 @@ package main.java.com.proj.core;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import main.java.com.proj.gui.MainWindow;
 
 public class Simulator extends Thread implements ActionListener {
@@ -13,6 +10,8 @@ public class Simulator extends Thread implements ActionListener {
 	private MainWindow view;
 	private boolean isLaunched = false;
 	public int speed;
+	public int numberOfMouseDoorOne;
+	public int numberOfMouseDoorTwo;
 	
 	public Simulator() {
 	}
@@ -21,7 +20,9 @@ public class Simulator extends Thread implements ActionListener {
 		for (int i=0; i<50; i++) {
 			//update state
 			this.state.incrementTurn();
-			this.speed = Integer.parseInt(this.view.getSpeed().getText());
+			this.speed = this.view.getSpeed();
+			this.numberOfMouseDoorOne = this.view.getNumberOfMouseDoorOne();
+			this.numberOfMouseDoorTwo = this.view.getNumberOfMouseDoorTwo();
 			
 			
 			//update view
@@ -68,7 +69,10 @@ public class Simulator extends Thread implements ActionListener {
 			synchronized(this){
 				this.notify();
 				this.isLaunched = true;
-				this.view.getLaunchButton().setText("Lancer");
+				this.view.getLaunchButton().setText("Pause");
+
+				System.out.println("Door 1: "+numberOfMouseDoorOne);
+				System.out.println("Door 2: "+numberOfMouseDoorTwo);
 			}
 		} else if (this.getState() == State.NEW) { // if simulator is just created we start it
 			this.start();

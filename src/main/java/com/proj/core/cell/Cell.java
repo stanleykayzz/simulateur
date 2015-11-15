@@ -24,6 +24,15 @@ public class Cell {
 	public int getX() {
 		return x;
 	}
+
+	public int getY() {
+		return y;
+	}
+
+	public char getNature() {
+		return nature;
+	}
+	
 	public boolean getWalkable() {
 		return this.walkable;
 	}
@@ -77,39 +86,39 @@ public class Cell {
 		return "(" + getX() + ", " + getY() + "): h: " + getH() + " g: " + getG() + " f: "
 				+ getF() +" Walkable : " + getWalkable();
 	}
-
-	public int getY() {
-		return y;
-	}
+	
 	public Cell getParent() {
 		return this.parent;
 	}
+	
 	public void setParent(Cell g) {
 		this.parent = g;
-	}		
+	}
+	
 	public int calculategCosts(Cell n) {
 		if (diagonally)
 			return (n.getG() + 1);
 		else
 			return (n.getG() + 1);
 	}
+	
 	public double getH() {
 		return this.h;
 	}
+	
 	public void setIsDiagonaly(boolean b) {
 		this.diagonally= b;		
 	}
+	
 	private int absolute(int a) {
 		return a > 0 ? a : -a;
 	}
+	
 	public void setH(Cell genericNode) {
 		genericNode.setH((absolute(this.getX() - genericNode.getX())
                 + absolute(this.getY() - genericNode.getY())));
 	}
 	
-	public char getNature() {
-		return nature;
-	}
 	public void setWalkable(boolean b){
 		this.walkable = b;
 	}

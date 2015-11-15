@@ -23,9 +23,10 @@ public class Simulator extends Thread implements ActionListener {
 				this.state.setNumberOfMouseDoorTwo(this.view.getNumberOfMouseDoorTwo());	
 			} catch (NumberFormatException e) {
 				System.out.println("Ignoring wrong format input");
-			}			
+			}
 			
 			//update view
+			this.view.updateCanvas();
 			this.view.updateStatusBar();
 			this.view.updateControlBar();
 			

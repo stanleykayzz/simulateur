@@ -6,37 +6,38 @@ import javax.swing.JLabel;
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.utils.Constants;
 
-public class CellView extends JLabel{
+public class CellView {
 	Cell cell;
-	ImageIcon imageIcon;
+	ImageIcon imageIconGrass;
+	ImageIcon imageIconWall;
+	ImageIcon imageIconCheese;
+	ImageIcon imageIconDoor;
+	ImageIcon imageIconSoil;
 	
-	public CellView(Cell oneCell) {
-		super();
-		this.cell = oneCell;
-		setImageIcon();
-		this.setIcon(imageIcon);
+	public CellView() {
+		imageIconGrass = new ImageIcon(Constants.GRASS);
+		imageIconWall = new ImageIcon(Constants.WALL);
+		imageIconCheese = new ImageIcon(Constants.CHEESE);
+		imageIconDoor = new ImageIcon(Constants.DOOR);
+		imageIconSoil = new ImageIcon(Constants.SOIL);
 	}
 	
-	private void setImageIcon() {
-		if (cell.getNature() == 'G') {
-			imageIcon = new ImageIcon(Constants.GRASS);
-			return;
+	public ImageIcon getImageIcon(char nature) {
+		if (nature == 'G') {
+			return imageIconGrass;
 		}
-		if (cell.getNature() == '*') {
-			imageIcon = new ImageIcon(Constants.WALL);
-			return;
+		if (nature == '*') {
+			return imageIconWall;
 		}
-		if (cell.getNature() == 'A') {
-			imageIcon = new ImageIcon(Constants.CHEESE);
-			return;
+		if (nature == 'A') {
+			return imageIconCheese;
 		}
-		if (cell.getNature() == 'D') {
-			imageIcon = new ImageIcon(Constants.DOOR);
-			return;
+		if (nature == 'D') {
+			return imageIconDoor;
 		}
-		if (cell.getNature() == ' ' || cell.getNature() == 'P') {
-			imageIcon = new ImageIcon(Constants.SOIL);
-			return;
+		if (nature == ' ') {
+			return imageIconSoil;
 		}
+		return new ImageIcon();
 	}
 }

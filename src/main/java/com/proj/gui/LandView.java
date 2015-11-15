@@ -1,38 +1,39 @@
 package main.java.com.proj.gui;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
 
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.core.land.Land;
+import main.java.com.proj.utils.Constants;
 
-public class LandView extends JPanel{
+public class LandView extends Canvas{
 	private Land land;
+	private CellView cellView;
 	
 	public LandView(Land oneLand) {
 		land = oneLand;
-		//this.setBackground(new Color(203, 0, 1));
-		//System.out.println("LandView");
-		this.setLayout(new GridBagLayout());
+		cellView = new CellView();
 		initCellViews();
 	}
 	
 	private void initCellViews() {
-		GridBagConstraints c = new GridBagConstraints();
+		
+	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(land.getColumns()*Constants.IMAGE_SIZE, land.getRows()*Constants.IMAGE_SIZE);
+	}
+	
+	@Override
+	public void paint(Graphics g) {
 		for (int i=0; i<land.getRows(); i++) {
 			for (int j=0; j<land.getColumns(); j++) {
 				Cell cell = land.get(i, j);
-				c.gridx = j;
-				c.gridy = i;
-				
-				CellView cellView = new CellView(cell);
-				this.add(cellView,c);
+				g.drawImage(cellView.getImageIcon(cell.getNature()).getImage(), cell.getY()*Constants.IMAGE_SIZE, cell.getX()*Constants.IMAGE_SIZE, null);
 			}
 		}
-	}	
+	}
 }

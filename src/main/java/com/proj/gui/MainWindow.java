@@ -5,11 +5,9 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import main.java.com.proj.core.SimulatorState;
 import main.java.com.proj.core.land.Land;
-import main.java.com.proj.gui.optionsBar.ControlBar;
 import main.java.com.proj.gui.optionsBar.OptionsBar;
 import main.java.com.proj.utils.Constants;
 
@@ -49,10 +47,18 @@ public class MainWindow extends JFrame {
 	
 	public void setState(SimulatorState state) {
 		this.simulatorState = state;
+		updateStatusBar();
+		updateControlBar();
 	}
 	
-	public void update() {
-		optionsBar.getStatusBar().getNumberOfTurn().setValue(""+simulatorState.getTurn());
+	public void updateStatusBar() {
+		optionsBar.getStatusBar().getTurnNumber().setValue(""+simulatorState.getTurn());
+	}
+	
+	public void updateControlBar() {
+		optionsBar.getControlBar().getNumberOfMouseDoorOne().setValue(""+simulatorState.getNumberOfMouseDoorOne());
+		optionsBar.getControlBar().getNumberOfMouseDoorTwo().setValue(""+simulatorState.getNumberOfMouseDoorTwo());
+		optionsBar.getControlBar().getSpeed().setValue(""+simulatorState.getSpeed());
 	}
 	
 	public JButton getLaunchButton() {

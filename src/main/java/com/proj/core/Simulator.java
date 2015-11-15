@@ -9,9 +9,6 @@ public class Simulator extends Thread implements ActionListener {
 	private SimulatorState state;
 	private MainWindow view;
 	private boolean isLaunched = false;
-	public int speed;
-	public int numberOfMouseDoorOne;
-	public int numberOfMouseDoorTwo;
 	
 	public Simulator() {
 	}
@@ -21,18 +18,19 @@ public class Simulator extends Thread implements ActionListener {
 			//update state
 			this.state.incrementTurn();
 			try {
-				this.speed = this.view.getSpeed();
-				this.numberOfMouseDoorOne = this.view.getNumberOfMouseDoorOne();
-				this.numberOfMouseDoorTwo = this.view.getNumberOfMouseDoorTwo();	
+				this.state.setSpeed(this.view.getSpeed());
+				this.state.setNumberOfMouseDoorOne(this.view.getNumberOfMouseDoorOne());
+				this.state.setNumberOfMouseDoorTwo(this.view.getNumberOfMouseDoorTwo());	
 			} catch (NumberFormatException e) {
 				System.out.println("Ignoring wrong format input");
 			}			
 			
 			//update view
-			this.view.update();
+			this.view.updateStatusBar();
+			this.view.updateControlBar();
 			
 			try {
-				Thread.sleep(speed);
+				Thread.sleep(this.state.getSpeed());
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -88,8 +86,8 @@ public class Simulator extends Thread implements ActionListener {
 	
 	public void showLogs() {
 		System.out.println("turn: "+state.getTurn());
-		System.out.println("Door 1: "+numberOfMouseDoorOne);
-		System.out.println("Door 2: "+numberOfMouseDoorTwo);
-		System.out.println("speed: "+speed);
+		System.out.println("Door 1: "+this.state.getNumberOfMouseDoorOne());
+		System.out.println("Door 2: "+this.state.getNumberOfMouseDoorTwo());
+		System.out.println("speed: "+this.state.getSpeed());
 	}
 }

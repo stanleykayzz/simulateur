@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import main.java.com.proj.gui.components.StatusBarItem;
 
 public class StatusBar extends JPanel{
-	private StatusBarItem numberOfTurn;
+	private StatusBarItem turnNumber;
 	private StatusBarItem numberOfTrips;
 	private StatusBarItem numberOfMouseMoving;
 	private StatusBarItem numberOfMouseArrived;
@@ -21,25 +21,25 @@ public class StatusBar extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		
-		numberOfTurn = new StatusBarItem("TOUR","0");
+		turnNumber = new StatusBarItem("TOUR","");
 		c.gridx = 1;
-		this.add(numberOfTurn, c);
+		this.add(turnNumber, c);
 		
-		numberOfTrips = new StatusBarItem("DEPLACEMENTS","0");
+		numberOfTrips = new StatusBarItem("DEPLACEMENTS","");
 		c.gridx++;
 		this.add(numberOfTrips, c);
 		
-		numberOfMouseMoving = new StatusBarItem("SOURIS EN DEPLACEMENTS","0");
+		numberOfMouseMoving = new StatusBarItem("SOURIS EN DEPLACEMENTS","");
 		c.gridx++;
 		this.add(numberOfMouseMoving, c);
 
-		numberOfMouseArrived = new StatusBarItem("SOURIS ARRIVES","0");
+		numberOfMouseArrived = new StatusBarItem("SOURIS ARRIVES","");
 		c.gridx++;
 		this.add(numberOfMouseArrived, c);
 	}
 	
-	public StatusBarItem getNumberOfTurn() {
-		return numberOfTurn;
+	public StatusBarItem getTurnNumber() {
+		return turnNumber;
 	}
 	
 	public StatusBarItem getNumberOfTrips() {

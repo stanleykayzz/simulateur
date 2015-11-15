@@ -22,15 +22,15 @@ public class ControlBar extends JPanel {
 		c.fill = GridBagConstraints.VERTICAL;
 		c.weightx = 1;
 		
-		numberOfMouseDoorOne = new ControlBarItem("PORTE 1","0");
+		numberOfMouseDoorOne = new ControlBarItem("PORTE 1","");
 		c.gridx = 1;
 		this.add(numberOfMouseDoorOne, c);
 		
-		numberOfMouseDoorTwo = new ControlBarItem("PORTE 2","0");
+		numberOfMouseDoorTwo = new ControlBarItem("PORTE 2","");
 		c.gridx++;
 		this.add(numberOfMouseDoorTwo, c);
 		
-		speed = new ControlBarItem("VITESSE","2000");
+		speed = new ControlBarItem("VITESSE","");
 		c.gridx++;
 		this.add(speed, c);
 

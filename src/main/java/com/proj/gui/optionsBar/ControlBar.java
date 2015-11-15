@@ -23,12 +23,10 @@ public class ControlBar extends JPanel {
 		c.weightx = 1;
 		
 		OptionView pv1 = new OptionView("PORTE 1","0");
-		pv1.setValue("1");
 		c.gridx = 1;
 		this.add(pv1, c);
 		
 		OptionView pv2 = new OptionView("PORTE 2","0");
-		pv2.setValue("2");
 		c.gridx++;
 		this.add(pv2, c);
 		

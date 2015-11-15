@@ -25,7 +25,7 @@ public class OptionView extends JPanel{
 		this.add(nameLabel,c);
 		this.add(valueTextField,c);
 		this.setName(name);
-		this.setValue(name);
+		this.setValue(value);
 	}
 
 	public void setName(String name){

@@ -13,7 +13,7 @@ public class Main {
 			
 		Simulator simulator = new Simulator();
 
-		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map.txt");
+		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map02.txt");
 		mw.setState(state);
 		mw.getLaunchButton().addActionListener(simulator);
 		

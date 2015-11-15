@@ -5,11 +5,11 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PropertyView extends JPanel {
+public class StatusBarItem extends JPanel {
 	private JLabel nameLabel;
 	private JLabel valueLabel;
 	
-	public PropertyView(String name, String value){
+	public StatusBarItem(String name, String value){
 		this.nameLabel = new JLabel();
 		this.nameLabel.setForeground(new Color(0,0,0));
 		this.valueLabel = new JLabel();

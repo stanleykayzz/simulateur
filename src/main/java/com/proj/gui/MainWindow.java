@@ -6,7 +6,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import main.java.com.proj.core.Simulator;
 import main.java.com.proj.core.SimulatorState;
 import main.java.com.proj.core.land.Land;
 import main.java.com.proj.gui.optionsBar.OptionsBar;

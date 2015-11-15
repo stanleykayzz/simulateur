@@ -3,19 +3,16 @@ package main.java.com.proj.gui.optionsBar;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import main.java.com.proj.core.Simulator;
-import main.java.com.proj.gui.components.OptionView;
+import main.java.com.proj.gui.components.ControlBarItem;
 
 public class ControlBar extends JPanel {
-	private OptionView numberOfMouseDoorOne;
-	private OptionView numberOfMouseDoorTwo;
-	private OptionView speed;
+	private ControlBarItem numberOfMouseDoorOne;
+	private ControlBarItem numberOfMouseDoorTwo;
+	private ControlBarItem speed;
 	JButton launchButton;
 	
 	public ControlBar() {
@@ -25,15 +22,15 @@ public class ControlBar extends JPanel {
 		c.fill = GridBagConstraints.VERTICAL;
 		c.weightx = 1;
 		
-		numberOfMouseDoorOne = new OptionView("PORTE 1","0");
+		numberOfMouseDoorOne = new ControlBarItem("PORTE 1","0");
 		c.gridx = 1;
 		this.add(numberOfMouseDoorOne, c);
 		
-		numberOfMouseDoorTwo = new OptionView("PORTE 2","0");
+		numberOfMouseDoorTwo = new ControlBarItem("PORTE 2","0");
 		c.gridx++;
 		this.add(numberOfMouseDoorTwo, c);
 		
-		speed = new OptionView("VITESSE","0");
+		speed = new ControlBarItem("VITESSE","0");
 		c.gridx++;
 		this.add(speed, c);
 
@@ -48,15 +45,15 @@ public class ControlBar extends JPanel {
 		return this.launchButton;
 	}
 	
-	public OptionView getNumberOfMouseDoorOne() {
+	public ControlBarItem getNumberOfMouseDoorOne() {
 		return this.numberOfMouseDoorOne;
 	}
 	
-	public OptionView getNumberOfMouseDoorTwo() {
+	public ControlBarItem getNumberOfMouseDoorTwo() {
 		return this.numberOfMouseDoorTwo;
 	}
 	
-	public OptionView getSpeed() {
+	public ControlBarItem getSpeed() {
 		return this.speed;
 	}
 }

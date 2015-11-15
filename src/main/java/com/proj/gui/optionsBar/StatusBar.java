@@ -6,13 +6,13 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import main.java.com.proj.gui.components.PropertyView;
+import main.java.com.proj.gui.components.StatusBarItem;
 
 public class StatusBar extends JPanel{
-	private PropertyView numberOfTurn;
-	private PropertyView numberOfTrips;
-	private PropertyView numberOfMouseMoving;
-	private PropertyView numberOfMouseArrived;
+	private StatusBarItem numberOfTurn;
+	private StatusBarItem numberOfTrips;
+	private StatusBarItem numberOfMouseMoving;
+	private StatusBarItem numberOfMouseArrived;
 	
 	public StatusBar() {
 		this.setLayout(new GridBagLayout());
@@ -21,36 +21,36 @@ public class StatusBar extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		
-		numberOfTurn = new PropertyView("TOUR","0");
+		numberOfTurn = new StatusBarItem("TOUR","0");
 		c.gridx = 1;
 		this.add(numberOfTurn, c);
 		
-		numberOfTrips = new PropertyView("DEPLACEMENTS","0");
+		numberOfTrips = new StatusBarItem("DEPLACEMENTS","0");
 		c.gridx++;
 		this.add(numberOfTrips, c);
 		
-		numberOfMouseMoving = new PropertyView("SOURIS EN DEPLACEMENTS","0");
+		numberOfMouseMoving = new StatusBarItem("SOURIS EN DEPLACEMENTS","0");
 		c.gridx++;
 		this.add(numberOfMouseMoving, c);
 
-		numberOfMouseArrived = new PropertyView("SOURIS ARRIVES","0");
+		numberOfMouseArrived = new StatusBarItem("SOURIS ARRIVES","0");
 		c.gridx++;
 		this.add(numberOfMouseArrived, c);
 	}
 	
-	public PropertyView getNumberOfTurn() {
+	public StatusBarItem getNumberOfTurn() {
 		return numberOfTurn;
 	}
 	
-	public PropertyView getNumberOfTrips() {
+	public StatusBarItem getNumberOfTrips() {
 		return numberOfTrips;
 	}
 	
-	public PropertyView getNumberOfMouseMoving() {
+	public StatusBarItem getNumberOfMouseMoving() {
 		return numberOfMouseMoving;
 	}
 	
-	public PropertyView getNumberOfMouseArrived() {
+	public StatusBarItem getNumberOfMouseArrived() {
 		return numberOfMouseArrived;
 	}
 }

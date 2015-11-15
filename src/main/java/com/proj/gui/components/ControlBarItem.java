@@ -8,11 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class OptionView extends JPanel{
+public class ControlBarItem extends JPanel{
 	private JLabel nameLabel;
 	private JTextField valueTextField;
 	
-	public OptionView(String name, String value) {
+	public ControlBarItem(String name, String value) {
 		this.setOpaque(false);
 		this.nameLabel = new JLabel();
 		this.nameLabel.setForeground(new Color(255,255,250));

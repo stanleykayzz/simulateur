@@ -72,17 +72,16 @@ public class Simulator extends Thread implements ActionListener {
 				this.view.getLaunchButton().setText("Pause");
 
 				System.out.println("Door 1: "+numberOfMouseDoorOne);
-				System.out.println("Door 2: "+numberOfMouseDoorTwo);
+				System.out.println("Door 2: " + numberOfMouseDoorTwo);
 			}
 		} else if (this.getState() == State.NEW) { // if simulator is just created we start it
 			this.start();
 			this.isLaunched = true;
-			this.view.getLaunchButton().setText("Lancer");
+			this.view.getLaunchButton().setText("Pause");
 		} else { // or else we force off it
 			synchronized(this){
-				this.notify();
 				this.isLaunched = false;
-				this.view.getLaunchButton().setText("Pause");
+				this.view.getLaunchButton().setText("Lancer");
 			}
 		}
 	}

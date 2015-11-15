@@ -19,8 +19,5 @@ public class Main {
 		
 		simulator.setState(state);
 		simulator.setView(mw);
-		
-		//Thread thread = new Thread(simulator);
-		//thread.start();
 	}
 }

@@ -30,7 +30,7 @@ public class ControlBar extends JPanel {
 		c.gridx++;
 		this.add(numberOfMouseDoorTwo, c);
 		
-		speed = new ControlBarItem("VITESSE","0");
+		speed = new ControlBarItem("VITESSE","2000");
 		c.gridx++;
 		this.add(speed, c);
 

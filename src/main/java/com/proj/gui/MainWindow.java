@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import main.java.com.proj.core.SimulatorState;
 import main.java.com.proj.core.land.Land;
+import main.java.com.proj.gui.optionsBar.ControlBar;
 import main.java.com.proj.gui.optionsBar.OptionsBar;
 import main.java.com.proj.utils.Constants;
 
@@ -53,7 +55,15 @@ public class MainWindow extends JFrame {
 		optionsBar.getStatusBar().getNumberOfTurn().setValue(""+simulatorState.getTurn());
 	}
 	
-	public JButton getLaunchButton(){
+	public JButton getLaunchButton() {
 		return optionsBar.getControlBar().getLaunchButton();
+	}
+	
+	public JTextField getSpeed() {
+		return optionsBar.getControlBar().getSpeed().getValue();
+	}
+	
+	public void setSpeed(String value) {
+		this.optionsBar.getControlBar().getSpeed().setValue(value);
 	}
 }

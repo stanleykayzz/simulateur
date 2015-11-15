@@ -35,4 +35,8 @@ public class ControlBarItem extends JPanel{
 	public void setValue(String value){
 		valueTextField.setText(value);
 	}
+	
+	public JTextField getValue() {
+		return this.valueTextField;
+	}
 }

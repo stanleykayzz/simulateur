@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void update() {
-		optionsBar.getStatusBar().getAttrTurn().setValue(""+simulatorState.getTurn());
+		optionsBar.getStatusBar().getNumberOfTurn().setValue(""+simulatorState.getTurn());
 	}
 	
 	public JButton getLaunchButton(){

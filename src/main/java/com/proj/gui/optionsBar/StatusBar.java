@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 import main.java.com.proj.gui.components.PropertyView;
 
 public class StatusBar extends JPanel{
-	private PropertyView attrNumberOfTurn;
-	private PropertyView attrNumberOfTrips;
-	private PropertyView attrNumberOfMouseMoving;
-	private PropertyView attrNumberOfMouseArrived;
+	private PropertyView numberOfTurn;
+	private PropertyView numberOfTrips;
+	private PropertyView numberOfMouseMoving;
+	private PropertyView numberOfMouseArrived;
 	
 	public StatusBar() {
 		this.setLayout(new GridBagLayout());
@@ -21,36 +21,36 @@ public class StatusBar extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		
-		attrNumberOfTurn = new PropertyView("TOUR","0");
+		numberOfTurn = new PropertyView("TOUR","0");
 		c.gridx = 1;
-		this.add(attrNumberOfTurn, c);
+		this.add(numberOfTurn, c);
 		
-		attrNumberOfTrips = new PropertyView("DEPLACEMENTS","0");
+		numberOfTrips = new PropertyView("DEPLACEMENTS","0");
 		c.gridx++;
-		this.add(attrNumberOfTrips, c);
+		this.add(numberOfTrips, c);
 		
-		attrNumberOfMouseMoving = new PropertyView("SOURIS EN DEPLACEMENTS","0");
+		numberOfMouseMoving = new PropertyView("SOURIS EN DEPLACEMENTS","0");
 		c.gridx++;
-		this.add(attrNumberOfMouseMoving, c);
+		this.add(numberOfMouseMoving, c);
 
-		attrNumberOfMouseArrived = new PropertyView("SOURIS ARRIVES","0");
+		numberOfMouseArrived = new PropertyView("SOURIS ARRIVES","0");
 		c.gridx++;
-		this.add(attrNumberOfMouseArrived, c);
+		this.add(numberOfMouseArrived, c);
 	}
 	
-	public PropertyView getAttrTurn() {
-		return attrNumberOfTurn;
+	public PropertyView getNumberOfTurn() {
+		return numberOfTurn;
 	}
 	
-	public PropertyView getAttrMove() {
-		return attrNumberOfTrips;
+	public PropertyView getNumberOfTrips() {
+		return numberOfTrips;
 	}
 	
-	public PropertyView getAttrMovingMouse() {
-		return attrNumberOfMouseMoving;
+	public PropertyView getNumberOfMouseMoving() {
+		return numberOfMouseMoving;
 	}
 	
-	public PropertyView getAttrMouseArrived() {
-		return attrNumberOfMouseArrived;
+	public PropertyView getNumberOfMouseArrived() {
+		return numberOfMouseArrived;
 	}
 }

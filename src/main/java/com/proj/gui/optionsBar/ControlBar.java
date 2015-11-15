@@ -13,6 +13,9 @@ import main.java.com.proj.core.Simulator;
 import main.java.com.proj.gui.components.OptionView;
 
 public class ControlBar extends JPanel {
+	private OptionView numberOfMouseDoorOne;
+	private OptionView numberOfMouseDoorTwo;
+	private OptionView speed;
 	JButton launchButton;
 	
 	public ControlBar() {
@@ -22,17 +25,17 @@ public class ControlBar extends JPanel {
 		c.fill = GridBagConstraints.VERTICAL;
 		c.weightx = 1;
 		
-		OptionView pv1 = new OptionView("PORTE 1","0");
+		numberOfMouseDoorOne = new OptionView("PORTE 1","0");
 		c.gridx = 1;
-		this.add(pv1, c);
+		this.add(numberOfMouseDoorOne, c);
 		
-		OptionView pv2 = new OptionView("PORTE 2","0");
+		numberOfMouseDoorTwo = new OptionView("PORTE 2","0");
 		c.gridx++;
-		this.add(pv2, c);
+		this.add(numberOfMouseDoorTwo, c);
 		
-		OptionView pv3 = new OptionView("VITESSE","0");
+		speed = new OptionView("VITESSE","0");
 		c.gridx++;
-		this.add(pv3, c);
+		this.add(speed, c);
 
 		launchButton = new JButton("Lancer");
 		launchButton.setBackground(new Color(70, 44, 21));
@@ -43,5 +46,17 @@ public class ControlBar extends JPanel {
 	
 	public JButton getLaunchButton(){
 		return this.launchButton;
+	}
+	
+	public OptionView getNumberOfMouseDoorOne() {
+		return this.numberOfMouseDoorOne;
+	}
+	
+	public OptionView getNumberOfMouseDoorTwo() {
+		return this.numberOfMouseDoorTwo;
+	}
+	
+	public OptionView getSpeed() {
+		return this.speed;
 	}
 }

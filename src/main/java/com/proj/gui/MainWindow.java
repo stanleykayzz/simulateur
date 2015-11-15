@@ -3,6 +3,7 @@ package main.java.com.proj.gui;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import main.java.com.proj.core.Simulator;
@@ -19,12 +20,12 @@ public class MainWindow extends JFrame {
 	private LandView landView;
 	private OptionsBar optionsBar;
 	
-	public MainWindow(String filename, Simulator simulator) throws Exception {
+	public MainWindow(String filename) throws Exception {
 		super();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		land = Land.buildFromFile(filename);
 		landView = new LandView(this.land);
-		optionsBar = new OptionsBar(simulator);
+		optionsBar = new OptionsBar();
 		addViews();
 		paramsMainWindow();
 		this.setVisible(true);
@@ -51,5 +52,9 @@ public class MainWindow extends JFrame {
 	
 	public void update() {
 		optionsBar.getStatusBar().getAttrTurn().setValue(""+simulatorState.getTurn());
+	}
+	
+	public JButton getLaunchButton(){
+		return optionsBar.getControlBar().getLaunchButton();
 	}
 }

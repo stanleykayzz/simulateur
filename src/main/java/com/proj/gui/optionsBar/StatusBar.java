@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 import main.java.com.proj.gui.components.PropertyView;
 
 public class StatusBar extends JPanel{
-	private PropertyView attrTurn;
-	private PropertyView attrMove;
-	private PropertyView attrMovingMouse;
-	private PropertyView attrMouseArrived;
+	private PropertyView attrNumberOfTurn;
+	private PropertyView attrNumberOfTrips;
+	private PropertyView attrNumberOfMouseMoving;
+	private PropertyView attrNumberOfMouseArrived;
 	
 	public StatusBar() {
 		this.setLayout(new GridBagLayout());
@@ -21,38 +21,36 @@ public class StatusBar extends JPanel{
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		
-		attrTurn = new PropertyView("TOUR","0");
-		attrTurn.setValue("1");
+		attrNumberOfTurn = new PropertyView("TOUR","0");
 		c.gridx = 1;
-		this.add(attrTurn, c);
+		this.add(attrNumberOfTurn, c);
 		
-		attrMove = new PropertyView("DEPLACEMENTS","0");
-		attrMove.setValue("2");
+		attrNumberOfTrips = new PropertyView("DEPLACEMENTS","0");
 		c.gridx++;
-		this.add(attrMove, c);
+		this.add(attrNumberOfTrips, c);
 		
-		attrMovingMouse = new PropertyView("SOURIS EN DEPLACEMENTS","0");
+		attrNumberOfMouseMoving = new PropertyView("SOURIS EN DEPLACEMENTS","0");
 		c.gridx++;
-		this.add(attrMovingMouse, c);
+		this.add(attrNumberOfMouseMoving, c);
 
-		attrMouseArrived = new PropertyView("SOURIS ARRIVES","0");
+		attrNumberOfMouseArrived = new PropertyView("SOURIS ARRIVES","0");
 		c.gridx++;
-		this.add(attrMouseArrived, c);
+		this.add(attrNumberOfMouseArrived, c);
 	}
 	
 	public PropertyView getAttrTurn() {
-		return attrTurn;
+		return attrNumberOfTurn;
 	}
 	
 	public PropertyView getAttrMove() {
-		return attrMove;
+		return attrNumberOfTrips;
 	}
 	
 	public PropertyView getAttrMovingMouse() {
-		return attrMovingMouse;
+		return attrNumberOfMouseMoving;
 	}
 	
 	public PropertyView getAttrMouseArrived() {
-		return attrMouseArrived;
+		return attrNumberOfMouseArrived;
 	}
 }

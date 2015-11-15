@@ -13,8 +13,9 @@ import main.java.com.proj.core.Simulator;
 import main.java.com.proj.gui.components.OptionView;
 
 public class ControlBar extends JPanel {
+	JButton launchButton;
 	
-	public ControlBar(Simulator simulator) {
+	public ControlBar() {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(new Color(131, 104, 65));
 		GridBagConstraints c = new GridBagConstraints();
@@ -35,11 +36,14 @@ public class ControlBar extends JPanel {
 		c.gridx++;
 		this.add(pv3, c);
 
-		JButton pv4 = new JButton("Lancer");
-		pv4.setBackground(new Color(70, 44, 21));
-		pv4.setForeground(new Color(255,255,255));
-		pv4.addActionListener(simulator);
+		launchButton = new JButton("Lancer");
+		launchButton.setBackground(new Color(70, 44, 21));
+		launchButton.setForeground(new Color(255,255,255));
 		c.gridx++;
-		this.add(pv4, c);
+		this.add(launchButton, c);
+	}
+	
+	public JButton getLaunchButton(){
+		return this.launchButton;
 	}
 }

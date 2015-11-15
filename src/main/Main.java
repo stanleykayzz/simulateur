@@ -13,8 +13,9 @@ public class Main {
 			
 		Simulator simulator = new Simulator();
 
-		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map.txt", simulator);
+		MainWindow mw = new MainWindow(Constants.PATH_MAP+"map.txt");
 		mw.setState(state);
+		mw.getLaunchButton().addActionListener(simulator);
 		
 		simulator.setState(state);
 		simulator.setView(mw);

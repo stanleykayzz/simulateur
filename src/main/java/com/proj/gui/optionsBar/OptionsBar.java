@@ -9,8 +9,9 @@ import main.java.com.proj.core.Simulator;
 
 public class OptionsBar extends JPanel {
 	private StatusBar statusBar;
+	private ControlBar controlBar;
 	
-	public OptionsBar(Simulator simulator) {
+	public OptionsBar() {
 		//this.setBackground(new Color(23,159,47));
 
 		GridBagLayout gbl = new GridBagLayout();
@@ -21,11 +22,17 @@ public class OptionsBar extends JPanel {
 
 		statusBar = new StatusBar();
 		add(statusBar,c);
-		ControlBar controlBar = new ControlBar(simulator);
+		
+		controlBar = new ControlBar();
 		add(controlBar,c);
 	}
-	
+
 	public StatusBar getStatusBar() {
 		return statusBar;
 	}
+
+	public ControlBar getControlBar() {
+		return controlBar;
+	}
+	
 }

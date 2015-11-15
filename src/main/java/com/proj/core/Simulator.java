@@ -8,6 +8,7 @@ import main.java.com.proj.gui.MainWindow;
 public class Simulator extends Thread implements ActionListener {
 	private SimulatorState state;
 	private MainWindow view;
+	private boolean isLaunched = false;
 	
 	public Simulator() {
 	}
@@ -30,6 +31,16 @@ public class Simulator extends Thread implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			if (!isLaunched) {
+				try {
+					synchronized (this) {
+						this.wait();	
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -42,8 +53,19 @@ public class Simulator extends Thread implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		this.start();
+	public void actionPerformed(ActionEvent e) { 
+		if (this.getState() == State.WAITING) { // if simulator is paused we relaunch it
+			synchronized(this){
+				this.notify();
+				this.isLaunched = false;
+			}
+		} else if (this.getState() == State.NEW) { // if simulator is just created we start it
+			this.start();
+			this.isLaunched = true;
+		} else { // or else we force off it
+			synchronized(this){
+				this.isLaunched = false;
+			}
+		}
 	}
 }

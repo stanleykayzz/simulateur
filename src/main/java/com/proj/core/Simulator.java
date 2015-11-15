@@ -20,16 +20,17 @@ public class Simulator extends Thread implements ActionListener {
 		for (int i=0; i<50; i++) {
 			//update state
 			this.state.incrementTurn();
-			this.speed = this.view.getSpeed();
-			this.numberOfMouseDoorOne = this.view.getNumberOfMouseDoorOne();
-			this.numberOfMouseDoorTwo = this.view.getNumberOfMouseDoorTwo();
-			
+			try {
+				this.speed = this.view.getSpeed();
+				this.numberOfMouseDoorOne = this.view.getNumberOfMouseDoorOne();
+				this.numberOfMouseDoorTwo = this.view.getNumberOfMouseDoorTwo();	
+			} catch (NumberFormatException e) {
+				System.out.println("Ignoring wrong format input");
+			}			
 			
 			//update view
 			this.view.update();
 			
-			System.out.println("turn: "+state.getTurn());
-			System.out.println("speed: "+speed);
 			try {
 				Thread.sleep(speed);
 			} catch (InterruptedException e) {
@@ -46,6 +47,8 @@ public class Simulator extends Thread implements ActionListener {
 					e.printStackTrace();
 				}
 			}
+
+			showLogs();
 		}
 	}
 	
@@ -70,9 +73,6 @@ public class Simulator extends Thread implements ActionListener {
 				this.notify();
 				this.isLaunched = true;
 				this.view.getLaunchButton().setText("Pause");
-
-				System.out.println("Door 1: "+numberOfMouseDoorOne);
-				System.out.println("Door 2: " + numberOfMouseDoorTwo);
 			}
 		} else if (this.getState() == State.NEW) { // if simulator is just created we start it
 			this.start();
@@ -84,5 +84,12 @@ public class Simulator extends Thread implements ActionListener {
 				this.view.getLaunchButton().setText("Lancer");
 			}
 		}
+	}
+	
+	public void showLogs() {
+		System.out.println("turn: "+state.getTurn());
+		System.out.println("Door 1: "+numberOfMouseDoorOne);
+		System.out.println("Door 2: "+numberOfMouseDoorTwo);
+		System.out.println("speed: "+speed);
 	}
 }

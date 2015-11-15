@@ -34,7 +34,8 @@ public class Simulator extends Thread implements ActionListener {
 			if (!isLaunched) {
 				try {
 					synchronized (this) {
-						this.wait();	
+						this.wait();
+						this.isLaunched = true;	
 					}
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -64,6 +65,7 @@ public class Simulator extends Thread implements ActionListener {
 			this.isLaunched = true;
 		} else { // or else we force off it
 			synchronized(this){
+				this.notify();
 				this.isLaunched = false;
 			}
 		}

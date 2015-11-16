@@ -51,6 +51,24 @@ public class LandView extends Canvas{
 	
 	@Override
 	public void paint(Graphics g) {
+		/*
+		 * We paint the canvas using a BufferedStrategy.
+		 * A BufferedStrategy manages several BufferedImages internally.
+		 * The number of BufferedImages is set by the call of createBufferStrategy(int) method.
+		 * The BufferedStrategy provides a Graphics instance associated with
+		 * one of the internal BufferedImage. More precisely, getDrawGraphics()
+		 * gives an instance of Graphics associated to a BufferedImage that is not currently shown.
+		 * Then we use the graphics to draw and render what we have to (land and mice).
+		 * Finally, we tell the bufferedStrategy to flip its internal BufferedImage
+		 * in order to show the new BufferedImage we have drawn on.
+		 * 
+		 * This strategy allow to construct the new image in background
+		 * while the previous image is still at the foreground. When the background
+		 * image is ready it is directly shown to the foreground.
+		 * 
+		 * Indeed, this prevent us to draw the new image "publicly". Without this 
+		 * strategy, we could see the image being constructed on the screen.
+		 */
 		Graphics g2;
 		try{
 			g = this.getBufferStrategy().getDrawGraphics();

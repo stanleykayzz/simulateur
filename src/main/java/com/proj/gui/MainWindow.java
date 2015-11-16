@@ -23,6 +23,7 @@ public class MainWindow extends JFrame {
 		addViews();
 		this.pack();
 		paramsMainWindow();
+		landView.createBufferStrategy(2);
 		this.setVisible(true);
 	}
 	

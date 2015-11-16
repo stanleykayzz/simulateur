@@ -1,7 +1,6 @@
 package main.java.com.proj.gui;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.utils.Constants;
@@ -15,6 +14,7 @@ public class CellView {
 	ImageIcon imageIconSoil;
 	
 	public CellView() {
+	    
 		imageIconGrass = new ImageIcon(Constants.GRASS);
 		imageIconWall = new ImageIcon(Constants.WALL);
 		imageIconCheese = new ImageIcon(Constants.CHEESE);

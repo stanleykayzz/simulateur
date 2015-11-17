@@ -12,14 +12,15 @@ public class CellView {
 	ImageIcon imageIconCheese;
 	ImageIcon imageIconDoor;
 	ImageIcon imageIconSoil;
+	ImageIcon imageIconMouse;
 	
 	public CellView() {
-	    
 		imageIconGrass = new ImageIcon(Constants.GRASS);
 		imageIconWall = new ImageIcon(Constants.WALL);
 		imageIconCheese = new ImageIcon(Constants.CHEESE);
 		imageIconDoor = new ImageIcon(Constants.DOOR);
 		imageIconSoil = new ImageIcon(Constants.SOIL);
+		imageIconMouse = new ImageIcon(Constants.MOUSE);
 	}
 	
 	public ImageIcon getImageIcon(char nature) {
@@ -34,6 +35,9 @@ public class CellView {
 		}
 		if (nature == 'D') {
 			return imageIconDoor;
+		}
+		if (nature == 'P') {
+			return imageIconMouse;
 		}
 		if (nature == ' ') {
 			return imageIconSoil;

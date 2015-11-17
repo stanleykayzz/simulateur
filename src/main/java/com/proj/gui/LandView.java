@@ -3,31 +3,28 @@ package main.java.com.proj.gui;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Transparency;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import main.java.com.proj.core.Mouse;
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.core.land.Land;
 import main.java.com.proj.utils.Constants;
 
-public class LandView extends Canvas{
+public class LandView extends Canvas {
 	private Land land;
-	//private ArrayList<Mouse> mice;  // Simulator class is responsible to update the positions of each mouse in this list.
+	private ArrayList<Mouse> mice;  // Simulator class is responsible to update the positions of each mouse in this list.
 	private CellView cellView;
+	private int width;
+	private int height;
 	// BufferedImage buffy; // this may be needed for further graphics optimizations
 	
 	public LandView(Land oneLand) {
-		land = oneLand;
-		cellView = new CellView();
-		initCellViews();
+		this.land = oneLand;
+		this.cellView = new CellView();
+		this.mice = new ArrayList<>();
 
-	    int width = land.getColumns()*Constants.IMAGE_SIZE;
-	    int height = land.getRows()*Constants.IMAGE_SIZE;
+	    width = land.getColumns()*Constants.IMAGE_SIZE;
+	    height = land.getRows()*Constants.IMAGE_SIZE;
 	    
 		/* This may be needed for further graphics optimizations
 	     * It allows to create a BufferedImage adapted to the screen device 
@@ -40,13 +37,9 @@ public class LandView extends Canvas{
 	    
 	}
 	
-	private void initCellViews() {
-		
-	}
-	
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(land.getColumns()*Constants.IMAGE_SIZE, land.getRows()*Constants.IMAGE_SIZE);
+		return new Dimension(this.width, this.height);
 	}
 	
 	@Override
@@ -69,25 +62,25 @@ public class LandView extends Canvas{
 		 * Indeed, this prevent us to draw the new image "publicly". Without this 
 		 * strategy, we could see the image being constructed on the screen.
 		 */
-		Graphics g2;
-		try{
-			g = this.getBufferStrategy().getDrawGraphics();
+		Graphics g2 = g;
+		try {
+			g2 = this.getBufferStrategy().getDrawGraphics();
 			//g = buffy.getGraphics(); 			// this may be needed for further graphics optimizations
-			render(g);
+			render(g2);
 			// g2.drawImage(buffy,0,0,null);	// this may be needed for further graphics optimizations
-		}finally{
-			g.dispose();
+		} finally {
+			g2.dispose();
 		}		
 				
 		this.getBufferStrategy().show();
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics g) {
 		renderLand(g);
 		renderMice(g);
 	}
 	
-	public void renderLand(Graphics g){
+	public void renderLand(Graphics g) {
 		/*
 		 * This method draws the image of each cell of the land.
 		 * As the land is not supposed to dynamically change during a simulation
@@ -98,7 +91,7 @@ public class LandView extends Canvas{
 		 */
 		for (int i=0; i<land.getRows(); i++) {
 			for (int j=0; j<land.getColumns(); j++) {
-				Cell cell = land.get(i, j);
+				Cell cell = land.getCell(i, j);
 				int dx = cell.getY()*Constants.IMAGE_SIZE;
 				int dy = cell.getX()*Constants.IMAGE_SIZE;
 
@@ -107,18 +100,20 @@ public class LandView extends Canvas{
 			}
 		}
 	}
-	public void renderMice(Graphics g){
+	
+	public void renderMice(Graphics g) {
+		mice.add(new Mouse(15,30));
+		mice.add(new Mouse(3,20));
+		mice.add(new Mouse(7, 12));
 		/*
 		 * This method draws the images of the mice based on their internal position.
 		 * For each mouse of the list, it fetches the mouse coordinates,
 		 * then get a image from CellView, then draw the image on the canvas.
 		 */
-		/*
-		for(Mouse mouse : mice){
+		for(Mouse mouse : mice) {
 			int dx = mouse.getY()*Constants.IMAGE_SIZE;
 			int dy = mouse.getX()*Constants.IMAGE_SIZE;
 			g.drawImage(cellView.getImageIcon('P').getImage(), dx, dy, null);
 		}
-		*/
 	}
 }

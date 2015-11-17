@@ -24,6 +24,10 @@ public class Simulator extends Thread implements ActionListener {
 			} catch (NumberFormatException e) {
 				System.out.println("Ignoring wrong format input");
 			}
+			for(Door door : this.state.getDoors()){
+				System.out.println("door");
+				door.popMice(this.state.getListMovingMice());
+			}
 			
 			//update view
 			this.view.updateCanvas();

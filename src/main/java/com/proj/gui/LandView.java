@@ -18,10 +18,10 @@ public class LandView extends Canvas {
 	private int height;
 	// BufferedImage buffy; // this may be needed for further graphics optimizations
 	
-	public LandView(Land oneLand) {
+	public LandView(Land oneLand, ArrayList<Mouse> mice) {
 		this.land = oneLand;
 		this.cellView = new CellView();
-		this.mice = new ArrayList<>();
+		this.mice = mice;
 
 	    width = land.getColumns()*Constants.IMAGE_SIZE;
 	    height = land.getRows()*Constants.IMAGE_SIZE;
@@ -34,7 +34,6 @@ public class LandView extends Canvas {
 	    //GraphicsDevice device = env.getDefaultScreenDevice();
 	    //GraphicsConfiguration config = device.getDefaultConfiguration();
 	    //buffy = config.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
-	    
 	}
 	
 	@Override
@@ -102,9 +101,6 @@ public class LandView extends Canvas {
 	}
 	
 	public void renderMice(Graphics g) {
-		mice.add(new Mouse(15,30));
-		mice.add(new Mouse(3,20));
-		mice.add(new Mouse(7, 12));
 		/*
 		 * This method draws the images of the mice based on their internal position.
 		 * For each mouse of the list, it fetches the mouse coordinates,

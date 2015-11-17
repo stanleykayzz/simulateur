@@ -1,24 +1,27 @@
 package main.java.com.proj.gui;
 
+import java.util.ArrayList;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import main.java.com.proj.core.Door;
 import main.java.com.proj.core.SimulatorState;
 import main.java.com.proj.core.land.Land;
 import main.java.com.proj.gui.optionsBar.OptionsBar;
 
 public class MainWindow extends JFrame {
 	private SimulatorState simulatorState;
-	private Land land;
 	private LandView landView;
 	private OptionsBar optionsBar;
 	
-	public MainWindow(String filename) throws Exception {
+	public MainWindow(SimulatorState state) throws Exception {
 		super();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		land = Land.buildFromFile(filename);
-		landView = new LandView(this.land);
+		
+		simulatorState = state;
+		landView = new LandView(simulatorState.getLand(), simulatorState.getListMovingMice());
 		optionsBar = new OptionsBar();
 		addViews();
 		this.pack();

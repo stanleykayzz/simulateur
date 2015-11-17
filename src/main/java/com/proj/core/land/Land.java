@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.java.com.proj.core.Door;
+import main.java.com.proj.core.Position;
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.core.cell.CellNode;
 import main.java.com.proj.graph.impl.GenericEdge;
@@ -54,9 +56,11 @@ public class Land {
 	public int getRows() {
 		return this.rows;
 	}
-	public Cell getCell(int i, int j){
+	
+	public Cell getCell(int i, int j) {
 		return pLand.get(""+i+";"+j);
 	}
+	
 	public void showLand() {
 		for (int i=1; i<=rows; i++) {
 			for (int j=1; j<=columns; j++) {
@@ -64,6 +68,14 @@ public class Land {
 			}
 			System.out.println("");
 		}
+	}
+	
+	public boolean isAccessible(Position position) {
+		Cell cell = this.getCell(position.i, position.j);
+		if (cell.getNature() == ' ' || cell.getNature() == 'G' || cell.getNature() == 'A') {
+			return true;
+		}
+		return false;
 	}
 	
 	private Graph<String, Cell> convertLandToGraph() {
@@ -90,9 +102,17 @@ public class Land {
 		return graph;
 	}
 	
-	public static void main(String[] args) {
-		Land land = new Land(7, 7);
-		land.showLand();
-		//land.convertLandToGraph();
+	public ArrayList<Door> createDoors() {
+		ArrayList<Door> doors = new ArrayList<>();
+		for (int i=0; i<getRows(); i++) {
+			for (int j=0; j<getColumns(); j++) {
+				Cell cell = getCell(i, j);
+				if(cell.getNature() == 'D') {
+					Door door = new Door(new Position(i,j), this);
+					doors.add(door);
+				}
+			}
+		}
+		return doors;
 	}
 }

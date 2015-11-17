@@ -54,7 +54,7 @@ public class Land {
 	public int getRows() {
 		return this.rows;
 	}
-	public Cell get(int i, int j){
+	public Cell getCell(int i, int j){
 		return pLand.get(""+i+";"+j);
 	}
 	public void showLand() {

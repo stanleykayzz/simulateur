@@ -14,7 +14,7 @@ public class Door {
 		this.position = position;
 		listExitPositions = new ArrayList<>();
 		this.buildListExitPositions(land);
-		numberOfMice = 30;
+		numberOfMice = 6;
 	}
 	
 	public void setNumberOfMice(int n) {

@@ -2,6 +2,7 @@ package main.java.com.proj.core;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import main.java.com.proj.gui.MainWindow;
 
@@ -139,8 +140,15 @@ public class Simulator extends Thread implements ActionListener {
 	}
 	
 	private void moveMice() {
+		ArrayList<Mouse> miceToRemove = new ArrayList<>();
 		for(Mouse mouse : this.state.getListMovingMice()) {
-			mouse.move(this.state.getLand());
+			boolean mouseIsArrived = mouse.move(this.state.getLand());
+			if(mouseIsArrived){
+				miceToRemove.add(mouse);
+			}
+		}
+		for(Mouse mouseToRemove : miceToRemove){
+			this.state.getListMovingMice().remove(mouseToRemove);
 		}
 	}
 }

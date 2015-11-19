@@ -9,12 +9,13 @@ public class SimulatorState {
 	private int speed;
 	private int numberOfMouseDoorOne;
 	private int numberOfMouseDoorTwo;
+	private int numberOfMiceArrived;
 	private ArrayList<Mouse> movingMice;
 	private Land land;
 	
 	public SimulatorState(String filename) throws Exception {
 		turn = 0;
-		speed = 2000;
+		speed = 200;
 		numberOfMouseDoorOne = 30;
 		numberOfMouseDoorTwo = 30;
 		movingMice = new ArrayList<>();
@@ -65,5 +66,13 @@ public class SimulatorState {
 	
 	public ArrayList<Mouse> getListMovingMice() {
 		return this.movingMice;
+	}
+	
+	public int numberOfArrivedMice() {
+		int num = 0;
+		for (Cheese cheese : land.getCheeses()) {
+			num += cheese.getNumberOfArrivedMice();
+		}
+		return num;
 	}
 }

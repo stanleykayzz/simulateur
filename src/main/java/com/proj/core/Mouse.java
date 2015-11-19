@@ -9,28 +9,30 @@ import main.java.com.proj.graph.algo.Dijsktra;
 public class Mouse {
 	private ArrayList<Position> path;
 	private Position position;
-	private Position targetPosition;
+	private Cheese targetCheese;
 	private int indicePath;
 	
 	public Mouse(Position position, Land land) {
 		this.path = new ArrayList<>();
 		this.position = position;
-		this.targetPosition = this.chooseCheese(land.getCheeses());
-		//this.path = new Dijsktra(position, cheesePosition)
+		this.targetCheese = this.chooseCheese(land.getCheeses());
 
 		Dijsktra<Position, Cell> dijsktra = new Dijsktra<>();
 		dijsktra.setGraph(land.convertLandToGraph());
-		this.path = dijsktra.findShortestPath(position, targetPosition);
+		this.path = dijsktra.findShortestPath(position, targetCheese.getPosition());
 		
-		//this.path = test(position);
 		this.indicePath = 0;
 	}
 	
-	public void move(Land land) {
+	public boolean move(Land land) {
 		if(this.indicePath < (this.path.size()-1)){
 			this.indicePath++;
 			System.out.println("Moving mouse from "+position +" to "+ path.get(indicePath));
 			this.position = path.get(indicePath);
+			return false;
+		} else {
+			this.targetCheese.addArrivedMice(this);
+			return true;
 		}
 	}
 	
@@ -52,10 +54,10 @@ public class Mouse {
 		return this.position;
 	}
 	
-	private Position chooseCheese(ArrayList<Cheese> cheeses) {
+	private Cheese chooseCheese(ArrayList<Cheese> cheeses) {
 		int min = 0;
 		int max = cheeses.size() - 1;
 		int index = min + (int)(Math.random() * ((max - min) + 1));
-		return cheeses.get(index).getPosition();
+		return cheeses.get(index);
 	}
 }

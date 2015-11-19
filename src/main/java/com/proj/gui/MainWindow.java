@@ -55,6 +55,7 @@ public class MainWindow extends JFrame {
 	public void updateStatusBar() {
 		optionsBar.getStatusBar().getTurnNumber().setValue(""+simulatorState.getTurn());
 		optionsBar.getStatusBar().getNumberOfMouseMoving().setValue(""+this.simulatorState.getListMovingMice().size());
+		optionsBar.getStatusBar().getNumberOfMouseArrived().setValue(""+simulatorState.numberOfArrivedMice());
 	}
 	
 	public void updateControlBar() {

@@ -49,7 +49,7 @@ public class Simulator extends Thread implements ActionListener {
 		moveMice();
 		
 		//Faire sortir les souris
-		for(Door door : this.state.getDoors()) {
+		for(Door door : this.state.getLand().getDoors()) {
 			System.out.println("door");
 			door.addNewMiceIntoMovingMiceList(this.state.getListMovingMice());
 		}
@@ -140,7 +140,7 @@ public class Simulator extends Thread implements ActionListener {
 	
 	private void moveMice() {
 		for(Mouse mouse : this.state.getListMovingMice()) {
-			mouse.move();
+			mouse.move(this.state.getLand());
 		}
 	}
 }

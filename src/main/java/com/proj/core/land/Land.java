@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.java.com.proj.core.Cheese;
 import main.java.com.proj.core.Door;
 import main.java.com.proj.core.Position;
 import main.java.com.proj.core.cell.Cell;
@@ -15,6 +16,8 @@ public class Land {
 	private Map<String, Cell> pLand;
 	private int columns;
 	private int rows;
+	ArrayList<Cheese> cheeses;
+	ArrayList<Door> doors;
 	
 	public static Land buildFromFile(String filename) throws Exception {
 		LandFileParser landFile = new LandFileParser(filename);
@@ -22,29 +25,27 @@ public class Land {
 //		System.out.println("landFile.cols:"+landFile.cols);
 //		System.out.println("landFile.allChars.size:"+landFile.allChars.size());
 //		System.out.println("landFile.allChars:"+landFile.allChars);
-		Land land = new Land(landFile.cols, landFile.rows);
+		Land land = new Land(landFile);
 		land.buildLand(landFile.allChars);
+
 		return land;
 	}
 	
-	public Land(int x, int y){
-		this.columns = x;
-		this.rows = y;
+	public Land(LandFileParser landFileParser){
+		this.rows = landFileParser.rows;
+		this.columns = landFileParser.cols;
 		this.pLand = new HashMap<>();
-		buildLand();
+		this.cheeses = new ArrayList<>();
+		this.doors = new ArrayList<>();
+		
+		buildLand(landFileParser.allChars);
+		buildDoors();
+		buildCheeses();
 	}
 	public void buildLand(ArrayList<Character> allChars) {
 		for (int i=0; i<rows; i++) {
 			for (int j=0; j<columns; j++) {
 				pLand.put(""+i+";"+j, new Cell(i,j, allChars.get(i*columns + j)));
-			}
-		}
-	}
-	public void buildLand() {
-		for (int i=1; i<=rows; i++) {
-			for (int j=1; j<=columns; j++) {
-				//System.out.println("i:"+i+", j:"+j);
-				pLand.put(""+i+";"+j, new Cell(i,j, ' '));
 			}
 		}
 	}
@@ -62,8 +63,8 @@ public class Land {
 	}
 	
 	public void showLand() {
-		for (int i=1; i<=rows; i++) {
-			for (int j=1; j<=columns; j++) {
+		for (int i=0; i<rows; i++) {
+			for (int j=0; j<columns; j++) {
 				System.out.print(pLand.get(""+i+";"+j)+"\t");
 			}
 			System.out.println("");
@@ -81,8 +82,8 @@ public class Land {
 	private Graph<String, Cell> convertLandToGraph() {
 		Graph<String, Cell> graph = new Graph<>();
 		//on lie les noeuds horizontallement
-		for (int i=1; i<=rows; i++) {
-			for (int j=1; j<=columns; j++) {
+		for (int i=0; i<rows; i++) {
+			for (int j=0; j<columns; j++) {
 				graph.registerNode(new CellNode(""+i+";"+j, pLand.get(""+i+";"+j)));
 				if (j>1) {
 					GenericEdge<String, Cell> edge = new GenericEdge<>(graph.getNode(""+i+";"+j), graph.getNode(""+i+";"+(j-1)));
@@ -91,8 +92,8 @@ public class Land {
 			}
 		}
 		//on lie les noeuds verticallement
-		for (int j=1; j<=columns; j++) {
-			for (int i=1; i<=rows; i++) {
+		for (int j=0; j<columns; j++) {
+			for (int i=0; i<rows; i++) {
 				if (i>1) {
 					GenericEdge<String, Cell> edge = new GenericEdge<>(graph.getNode(""+i+""+j), graph.getNode(""+(i-1+""+j)));
 					edge.setAttribute("cost", 1);
@@ -101,18 +102,40 @@ public class Land {
 		}
 		return graph;
 	}
-	
-	public ArrayList<Door> createDoors() {
-		ArrayList<Door> doors = new ArrayList<>();
+
+	public void buildDoors() {
 		for (int i=0; i<getRows(); i++) {
 			for (int j=0; j<getColumns(); j++) {
 				Cell cell = getCell(i, j);
+				//System.out.println("Cell i"+i+" j"+j +":"+cell);
 				if(cell.getNature() == 'D') {
 					Door door = new Door(new Position(i,j), this);
-					doors.add(door);
+					this.doors.add(door);
 				}
 			}
 		}
-		return doors;
 	}
+	
+
+	public void buildCheeses() {
+		for (int i=0; i<getRows(); i++) {
+			for (int j=0; j<getColumns(); j++) {
+				Cell cell = getCell(i, j);
+				if(cell.getNature() == 'A') {
+					Cheese cheese = new Cheese(new Position(i,j));
+					cheeses.add(cheese);
+				}
+			}
+		}
+	}
+	
+	public ArrayList<Door> getDoors() {
+		return this.doors;
+	}
+	
+	public ArrayList<Cheese> getCheeses() {
+		return this.cheeses;
+	}
+	
+	
 }

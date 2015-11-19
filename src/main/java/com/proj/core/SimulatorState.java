@@ -11,7 +11,6 @@ public class SimulatorState {
 	private int numberOfMouseDoorTwo;
 	private ArrayList<Mouse> movingMice;
 	private Land land;
-	private ArrayList<Door> doors;
 	
 	public SimulatorState(String filename) throws Exception {
 		turn = 0;
@@ -21,16 +20,11 @@ public class SimulatorState {
 		movingMice = new ArrayList<>();
 
 		land = Land.buildFromFile(filename);
-		doors = land.createDoors();
-		System.out.println("Doors  number: "+doors.size());
+		System.out.println("Doors  number: "+ this.land.getDoors().size());
 	}
 	
 	public Land getLand() {
 		return land;
-	}
-	
-	public ArrayList<Door> getDoors() {
-		return doors;
 	}
 	
 	public int getTurn() {

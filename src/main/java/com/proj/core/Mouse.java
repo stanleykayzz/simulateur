@@ -9,6 +9,7 @@ public class Mouse extends Cell {
 	}
 	
 	public void move(Land land) {
-		System.out.println(this.toString());
+		System.out.println("Moving "+this.toString());
+		
 	}
 }

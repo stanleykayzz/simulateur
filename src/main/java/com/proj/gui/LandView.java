@@ -107,8 +107,8 @@ public class LandView extends Canvas {
 		 * then get a image from CellView, then draw the image on the canvas.
 		 */
 		for(Mouse mouse : mice) {
-			int dx = mouse.getY()*Constants.IMAGE_SIZE;
-			int dy = mouse.getX()*Constants.IMAGE_SIZE;
+			int dx = mouse.getPosition().j*Constants.IMAGE_SIZE;
+			int dy = mouse.getPosition().i*Constants.IMAGE_SIZE;
 			g.drawImage(cellView.getImageIcon('P').getImage(), dx, dy, null);
 		}
 	}

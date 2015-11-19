@@ -1,8 +1,8 @@
 package main.java.com.proj.core.cell;
 
 public class Cell {
-	int x;
-	int y;
+	protected int x;
+	protected int y;
 	boolean diagonally;
 	private int g;
 	private double f;

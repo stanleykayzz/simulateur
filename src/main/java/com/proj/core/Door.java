@@ -24,7 +24,7 @@ public class Door {
 		for(Position currentExit : listExitPositions) {
 			boolean exitAccessible = true;
 			for(Mouse mouse : movingMice) {
-				if(mouse.getX() == currentExit.i && mouse.getY() == currentExit.j){
+				if(mouse.getPosition().i == currentExit.i && mouse.getPosition().j == currentExit.j){
 					//La sortie est occupée
 					// Passer à la sortie suivante
 					exitAccessible = false;
@@ -32,7 +32,7 @@ public class Door {
 				}
 			}
 			if(exitAccessible) {
-				Mouse newMouse = new Mouse(currentExit.i,currentExit.j);
+				Mouse newMouse = new Mouse(currentExit);
 				movingMice.add(newMouse);
 				this.numberOfMice--;
 			}

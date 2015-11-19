@@ -20,11 +20,11 @@ public class Door {
 		this.numberOfMice = n;
 	}
 	
-	public void popMice(ArrayList<Mouse> movingMice) {
+	public void addNewMiceIntoMovingMiceList(ArrayList<Mouse> movingMice) {
 		for(Position currentExit : listExitPositions) {
 			boolean exitAccessible = true;
 			for(Mouse mouse : movingMice) {
-				if(mouse.getY() == currentExit.i && mouse.getX() == currentExit.j){
+				if(mouse.getX() == currentExit.i && mouse.getY() == currentExit.j){
 					//La sortie est occupée
 					// Passer à la sortie suivante
 					exitAccessible = false;

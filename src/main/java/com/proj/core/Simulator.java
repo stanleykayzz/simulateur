@@ -12,27 +12,12 @@ public class Simulator extends Thread implements ActionListener {
 	
 	public Simulator() {
 	}
-
+	
 	public void run() {
 		for (int i=0; i<50; i++) {
-			//update state
-			this.state.incrementTurn();
-			try {
-				this.state.setSpeed(this.view.getSpeed());
-				this.state.setNumberOfMouseDoorOne(this.view.getNumberOfMouseDoorOne());
-				this.state.setNumberOfMouseDoorTwo(this.view.getNumberOfMouseDoorTwo());	
-			} catch (NumberFormatException e) {
-				System.out.println("Ignoring wrong format input");
-			}
-			for(Door door : this.state.getDoors()){
-				System.out.println("door");
-				door.popMice(this.state.getListMovingMice());
-			}
 			
-			//update view
-			this.view.updateCanvas();
-			this.view.updateStatusBar();
-			this.view.updateControlBar();
+			this.updateSimulatorState();
+			this.updateView();
 			
 			try {
 				Thread.sleep(this.state.getSpeed());
@@ -40,20 +25,55 @@ public class Simulator extends Thread implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (!isLaunched) {
-				try {
-					// Ici c'est le thread simulator qui dépose un verrou si elle dispose
-					// (ou attend une ressource)
-					synchronized (this) {
-						this.wait();
-					}
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			
+			this.pauseThreadIfRequested();
 
 			showLogs();
+		}
+	}
+	
+	private void updateSimulatorState() {
+		//Mise à jour des données de status
+		this.state.incrementTurn();
+		
+		//Prise en compte des paramètres de controle
+		try {
+			this.state.setSpeed(this.view.getSpeed());
+			this.state.setNumberOfMouseDoorOne(this.view.getNumberOfMouseDoorOne());
+			this.state.setNumberOfMouseDoorTwo(this.view.getNumberOfMouseDoorTwo());	
+		} catch (NumberFormatException e) {
+			System.out.println("Ignoring wrong format input");
+		}
+		
+		//Déplacer les souris
+		moveMice();
+		
+		//Faire sortir les souris
+		for(Door door : this.state.getDoors()) {
+			System.out.println("door");
+			door.addNewMiceIntoMovingMiceList(this.state.getListMovingMice());
+		}
+		
+	}
+	
+	private void updateView() {
+		this.view.updateCanvas();
+		this.view.updateStatusBar();
+		this.view.updateControlBar();
+	}
+	
+	private void pauseThreadIfRequested() {
+		if (!isLaunched) {
+			try {
+				// Ici c'est le thread simulator qui dépose un verrou si elle dispose
+				// (ou attend une ressource)
+				synchronized (this) {
+					this.wait();
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -111,10 +131,16 @@ public class Simulator extends Thread implements ActionListener {
 		}
 	}
 	
-	public void showLogs() {
+	private void showLogs() {
 		System.out.println("turn: "+state.getTurn());
 		System.out.println("Door 1: "+this.state.getNumberOfMouseDoorOne());
 		System.out.println("Door 2: "+this.state.getNumberOfMouseDoorTwo());
 		System.out.println("speed: "+this.state.getSpeed());
+	}
+	
+	private void moveMice() {
+		for(Mouse mouse : this.state.getListMovingMice()) {
+			mouse.move();
+		}
 	}
 }

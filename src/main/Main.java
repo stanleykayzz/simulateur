@@ -6,7 +6,6 @@ import main.java.com.proj.gui.MainWindow;
 import main.java.com.proj.utils.Constants;
 
 public class Main {
-
 	public static void main(String[] args) throws Exception {
 		System.out.println("Simulateur de foule");
 		

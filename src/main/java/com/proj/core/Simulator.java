@@ -147,6 +147,7 @@ public class Simulator extends Thread implements ActionListener {
 				miceToRemove.add(mouse);
 			}
 		}
+		
 		for(Mouse mouseToRemove : miceToRemove){
 			this.state.getListMovingMice().remove(mouseToRemove);
 		}

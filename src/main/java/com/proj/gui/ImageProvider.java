@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 import main.java.com.proj.core.cell.Cell;
 import main.java.com.proj.utils.Constants;
 
-public class CellView {
+public class ImageProvider {
 	Cell cell;
 	ImageIcon imageIconGrass;
 	ImageIcon imageIconWall;
@@ -14,7 +14,7 @@ public class CellView {
 	ImageIcon imageIconSoil;
 	ImageIcon imageIconMouse;
 	
-	public CellView() {
+	public ImageProvider() {
 		imageIconGrass = new ImageIcon(Constants.GRASS);
 		imageIconWall = new ImageIcon(Constants.WALL);
 		imageIconCheese = new ImageIcon(Constants.CHEESE);

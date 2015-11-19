@@ -14,14 +14,18 @@ public class Door {
 		this.position = position;
 		listExitPositions = new ArrayList<>();
 		this.buildListExitPositions(land);
+		numberOfMice = 30;
 	}
 	
 	public void setNumberOfMice(int n) {
 		this.numberOfMice = n;
 	}
 	
-	public void addNewMiceIntoMovingMiceList(ArrayList<Mouse> movingMice) {
+	public void addNewMiceIntoMovingMiceList(ArrayList<Mouse> movingMice, Land land) {
 		for(Position currentExit : listExitPositions) {
+			if(numberOfMice <= 0){
+				break;
+			}
 			boolean exitAccessible = true;
 			for(Mouse mouse : movingMice) {
 				if(mouse.getPosition().i == currentExit.i && mouse.getPosition().j == currentExit.j){
@@ -32,7 +36,7 @@ public class Door {
 				}
 			}
 			if(exitAccessible) {
-				Mouse newMouse = new Mouse(currentExit);
+				Mouse newMouse = new Mouse(currentExit, land);
 				movingMice.add(newMouse);
 				this.numberOfMice--;
 			}

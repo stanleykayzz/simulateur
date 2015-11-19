@@ -22,7 +22,7 @@ public class Graph<K,V> implements IGraph<K,V> {
 	@Override
 	public GenericNode<K, V> getNode(K key) {
 		int index = 0;
-		while ((this.nodes.get(index)).getId() != key){
+		while (  !(this.nodes.get(index)).getId().equals(key)  ){
 			index++;
 		}
 		return this.nodes.get(index);

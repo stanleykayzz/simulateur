@@ -18,4 +18,8 @@ public class Cheese {
 	public int getNumberOfArrivedMice() {
 		return this.arrivedMice.size();
 	}
+	
+	public Position getPosition() {
+		return this.position;
+	}
 }

@@ -19,4 +19,17 @@ public class Position {
 	public String toString(){
 		return "Position("+this.i+","+this.j+")";
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+		 if (obj == null) {
+		        return false;
+		    }
+		    if (getClass() != obj.getClass()) {
+		        return false;
+		    }
+		    final Position other = (Position) obj;
+		 // System.out.println("Comparing "+ this + " and "+ other);
+		return i == other.i && j == other.j;
+	}
 }

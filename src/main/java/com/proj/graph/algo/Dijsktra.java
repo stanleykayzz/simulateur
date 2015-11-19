@@ -10,32 +10,31 @@ import main.java.com.proj.graph.impl.Graph;
 import main.java.com.proj.graph.interfaces.IEdge;
 import main.java.com.proj.graph.interfaces.INode;
 
-public class Dijsktra {
-	Graph<String, Object> graph = new Graph<>();
+public class Dijsktra<K,V>{
+	Graph<K,V> graph = new Graph<>();
 	List<Triplet> exploredNodes = new ArrayList<>();
 	List<Triplet> closedNodes = new ArrayList<>();
 	
-	public void setGraph(Graph<String, Object> graph) {
+	public void setGraph(Graph<K,V> graph) {
 		this.graph = graph;
 	}
 	
-	public void findShortestPath(String startNodeId, String endNodeId) {
+	public ArrayList<K> findShortestPath(K startNodeId, K endNodeId) {
 		exploredNodes.add(new Triplet(graph.getNode(startNodeId), 0, null));
 		while(!exploredNodes.isEmpty()) {
 			Collections.sort(exploredNodes);
 			printExploredNodes();
 			Triplet tripletOfLowestCostSum = exploredNodes.remove(0);
-			System.out.println("Triplet of lowest cost sum: "+tripletOfLowestCostSum.toString());
+			////System.out.println("Triplet of lowest cost sum: "+tripletOfLowestCostSum.toString());
 			closedNodes.add(tripletOfLowestCostSum);
 			printClosedNodes();
 			if (tripletOfLowestCostSum.node.equals(graph.getNode(endNodeId))) {
-				showPath();
 				break;
 			}
-			for (IEdge<String, Object> edge : tripletOfLowestCostSum.node.getEdges()) {
-				INode<String, Object> neighbor = edge.getOther(tripletOfLowestCostSum.node);
+			for (IEdge<K,V> edge : tripletOfLowestCostSum.node.getEdges()) {
+				INode<K,V> neighbor = edge.getOther(tripletOfLowestCostSum.node);
 				if (findTripletByNode(neighbor) != null ) {
-					//System.out.println("Already in closedNodes:"+neighbor.getId());
+					////System.out.println("Already in closedNodes:"+neighbor.getId());
 					continue;
 				}
 				int costSum = tripletOfLowestCostSum.costSum + ((Integer) edge.getAttribute("cost")).intValue();
@@ -55,30 +54,41 @@ public class Dijsktra {
 				}
 			}
 		}
+		ArrayList<K> path = buildPath();
+		System.out.println(path);
+		return path; 
 	}
 
 	public void printExploredNodes(){
-		List<String> nodes = new ArrayList<>();
+		List<Object> nodes = new ArrayList<>();
 		for( Triplet triplet : exploredNodes){
 			nodes.add(triplet.node.getId());
 		}
-		System.out.println("Explored Nodes: "+nodes);
+		//System.out.println("Explored Nodes: "+nodes);
 	}
 
 	public void printClosedNodes(){
-		List<String> nodes = new ArrayList<>();
+		List<K> nodes = new ArrayList<>();
 		for( Triplet triplet : closedNodes){
 			nodes.add(triplet.node.getId());
 		}
-		System.out.println("Closed Nodes: "+nodes);
+		//System.out.println("Closed Nodes: "+nodes);
 	}
 	
-	public void showPath() {
-		System.out.println("ShowPath:");
-		List<String> path = new ArrayList<>();
+	public ArrayList<K> getListString() {
+		ArrayList<K> nodes = new ArrayList<>();
+		for( Triplet triplet : closedNodes){
+			nodes.add(triplet.node.getId());
+		}
+		return nodes;
+	}
+	
+	public ArrayList<K> buildPath() {
+		//System.out.println("ShowPath:");
+		ArrayList<K> path = new ArrayList<>();
 		Triplet lastTriplet = closedNodes.get(closedNodes.size()-1);
 		path.add(lastTriplet.node.getId());
-		INode<String, Object> parent = lastTriplet.parent;
+		INode<K,V> parent = lastTriplet.parent;
 		while (lastTriplet!=null && parent!=null){
 			lastTriplet = findTripletByNode(parent);
 			path.add(lastTriplet.node.getId());
@@ -86,9 +96,10 @@ public class Dijsktra {
 		}
 		Collections.reverse(path);
 		System.out.println(path);
+		return path;
 	}
 	
-	public Triplet findTripletByNode(INode<String, Object> node) {
+	public Triplet findTripletByNode(INode<K,V> node) {
 		for (Triplet triplet : closedNodes) {
 			if (triplet.node!=null && triplet.node.getId().equals(node.getId())) {
 				return triplet;
@@ -98,12 +109,12 @@ public class Dijsktra {
 	}
 
 	public class Triplet implements Comparable<Triplet> {
-		INode<String, Object> node;
+		INode<K,V> node;
 		int costSum;
-		INode<String, Object> parent;
+		INode<K,V> parent;
 		
-		public Triplet(INode<String, Object> node, int costSum, INode<String, Object> nodeParent) {
-			this.node = node;
+		public Triplet(INode<K,V> genericNode, int costSum, INode<K,V> nodeParent) {
+			this.node = genericNode;
 			this.costSum = costSum;
 			this.parent = nodeParent;
 		}
@@ -127,7 +138,7 @@ public class Dijsktra {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("Dijsktra...");
+		//System.out.println("Dijsktra...");
 		Graph<String, Object> graph = new Graph<>();
 		GenericNode<String, Object> nodeA = new GenericNode<>("A");
 		GenericNode<String, Object> nodeB = new GenericNode<>("B");
@@ -192,11 +203,11 @@ public class Dijsktra {
 		GenericEdge<String, Object> edgeFJ = new GenericEdge<>(nodeF, nodeJ);
 		edgeFJ.setAttribute("cost", 4);
 
-		Dijsktra dijsktra = new Dijsktra();
+		Dijsktra<String, Object> dijsktra = new Dijsktra<>();
 		dijsktra.setGraph(graph);
 		
 		dijsktra.findShortestPath("I", "J");
 		
-		System.out.println("End");
+		//System.out.println("End");
 	}
 }

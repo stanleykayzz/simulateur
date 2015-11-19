@@ -51,7 +51,7 @@ public class Simulator extends Thread implements ActionListener {
 		//Faire sortir les souris
 		for(Door door : this.state.getLand().getDoors()) {
 			System.out.println("door");
-			door.addNewMiceIntoMovingMiceList(this.state.getListMovingMice());
+			door.addNewMiceIntoMovingMiceList(this.state.getListMovingMice(), state.getLand());
 		}
 		
 	}

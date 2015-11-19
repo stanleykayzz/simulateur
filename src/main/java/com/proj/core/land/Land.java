@@ -79,14 +79,14 @@ public class Land {
 		return false;
 	}
 	
-	private Graph<String, Cell> convertLandToGraph() {
-		Graph<String, Cell> graph = new Graph<>();
+	public Graph<Position, Cell> convertLandToGraph() {
+		Graph<Position, Cell> graph = new Graph<>();
 		//on lie les noeuds horizontallement
 		for (int i=0; i<rows; i++) {
 			for (int j=0; j<columns; j++) {
-				graph.registerNode(new CellNode(""+i+";"+j, pLand.get(""+i+";"+j)));
+				graph.registerNode(new CellNode(new Position(i,j), pLand.get(""+i+";"+j)));
 				if (j>1) {
-					GenericEdge<String, Cell> edge = new GenericEdge<>(graph.getNode(""+i+";"+j), graph.getNode(""+i+";"+(j-1)));
+					GenericEdge<Position, Cell> edge = new GenericEdge<>(graph.getNode(new Position(i,j)), graph.getNode(new Position(i,j-1)));
 					edge.setAttribute("cost", 1);
 				}
 			}
@@ -95,7 +95,7 @@ public class Land {
 		for (int j=0; j<columns; j++) {
 			for (int i=0; i<rows; i++) {
 				if (i>1) {
-					GenericEdge<String, Cell> edge = new GenericEdge<>(graph.getNode(""+i+""+j), graph.getNode(""+(i-1+""+j)));
+					GenericEdge<Position, Cell> edge = new GenericEdge<>(graph.getNode(new Position(i,j)), graph.getNode(new Position(i-1,j)));
 					edge.setAttribute("cost", 1);
 				}
 			}

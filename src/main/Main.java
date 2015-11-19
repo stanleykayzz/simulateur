@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Simulateur de foule");
 		
-		String filename = Constants.PATH_MAP+"map.txt";
+		String filename = Constants.PATH_MAP+"map03.txt";
 		SimulatorState state = new SimulatorState(filename);
 			
 		Simulator simulator = new Simulator();
